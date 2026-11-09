@@ -1,0 +1,7564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="HackMates - Share Ideas. Build Together.">
+<title>HackMates | Share Ideas. Build Together.</title>
+
+<style>
+/* =========================================================
+   HACKMATE
+   Royal • Peaceful • Premium • Responsive
+   ========================================================= */
+
+:root {
+    --navy: #101827;
+    --navy-light: #1b2942;
+    --royal: #526dfe;
+
+    --blue: #79baff;
+    --pink: #ef82b3;
+    --peach: #ffc18f;
+    --gold: #f5cb67;
+    --mint: #8bd9bd;
+
+    --white: #ffffff;
+    --cream: #fffaf7;
+    --background: #f7f9fc;
+
+    --text: #182237;
+    --text-light: #718099;
+
+    --border: rgba(30, 45, 70, 0.10);
+
+    --shadow:
+        0 20px 60px rgba(28, 42, 67, 0.12);
+
+    --soft-shadow:
+        0 10px 30px rgba(28, 42, 67, 0.08);
+
+    --radius: 24px;
+}
+
+/* RESET */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 5% 5%,
+            rgba(121, 186, 255, .20),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 95% 8%,
+            rgba(239, 130, 179, .16),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 193, 143, .15),
+            transparent 30%
+        ),
+        var(--background);
+
+    min-height: 100vh;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   SPLASH SCREEN
+   ========================================================= */
+
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            rgba(121,186,255,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 75% 70%,
+            rgba(239,130,179,.14),
+            transparent 30%
+        ),
+        #ffffff;
+
+    transition:
+        opacity .6s ease,
+        visibility .6s ease;
+}
+
+.splash.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.splash-content {
+    text-align: center;
+    animation: splashIn .9s ease;
+}
+
+.splash-logo {
+    width: 190px;
+    height: 190px;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 20px 30px rgba(50,70,100,.13)
+        );
+}
+
+.splash-title {
+    margin-top: 5px;
+
+    font-size: 52px;
+    font-weight: 850;
+
+    letter-spacing: -3px;
+
+    color: #53627d;
+}
+
+.splash-title span {
+    color: #65a7f3;
+}
+
+.splash-subtitle {
+    margin-top: 5px;
+
+    color: #8994a8;
+
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+@keyframes splashIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* =========================================================
+   LOGIN / REGISTER
+   ========================================================= */
+
+.auth {
+    min-height: 100vh;
+
+    display: grid;
+    place-items: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(121,186,255,.25),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 75%,
+            rgba(239,130,179,.20),
+            transparent 30%
+        ),
+        #f8f9fc;
+}
+
+.auth-container {
+    width: min(960px, 100%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    overflow: hidden;
+
+    background: white;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 34px;
+
+    box-shadow: var(--shadow);
+}
+
+/* LEFT */
+
+.auth-showcase {
+    position: relative;
+
+    padding: 50px;
+
+    overflow: hidden;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(121,186,255,.30),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 20% 85%,
+            rgba(239,130,179,.18),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #101827,
+            #263a60 65%,
+            #39496a
+        );
+}
+/* Settings nav - slightly larger */
+.bottom-nav .nav-item:last-child {
+    min-width: 90px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.bottom-nav .nav-item:last-child .nav-icon {
+    font-size: 20px;
+}
+
+.auth-showcase::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -150px;
+    bottom: -130px;
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 45px rgba(255,255,255,.025),
+        0 0 0 90px rgba(255,255,255,.018);
+}
+
+.auth-logo {
+    width: 110px;
+    height: 110px;
+
+    object-fit: contain;
+
+    padding: 8px;
+
+    background: white;
+
+    border-radius: 28px;
+
+    margin-bottom: 30px;
+}
+
+.auth-showcase h1 {
+    font-size: 42px;
+
+    line-height: 1;
+
+    letter-spacing: -2.5px;
+
+    margin-bottom: 18px;
+}
+
+.auth-showcase h1 span {
+    color: #9fcdff;
+}
+
+.auth-showcase p {
+    max-width: 370px;
+
+    color: #d2dbea;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.auth-quote {
+    margin-top: 40px;
+
+    padding:
+        14px 16px;
+
+    border-left:
+        3px solid var(--gold);
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: #e7ebf2;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+/* FORM */
+
+.auth-form {
+    padding: 50px;
+}
+
+.auth-form h2 {
+    font-size: 29px;
+
+    letter-spacing: -1px;
+}
+
+.auth-description {
+    margin-top: 7px;
+    margin-bottom: 26px;
+
+    color: var(--text-light);
+
+    font-size: 13px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #4d5a72;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+        1px solid #dfe5ee;
+
+    border-radius: 14px;
+
+    outline: none;
+
+    background: #fbfcfe;
+
+    color: var(--text);
+
+    transition: .2s;
+}
+
+.form-group input:focus {
+    border-color: #80ace8;
+
+    box-shadow:
+        0 0 0 4px rgba(121,186,255,.12);
+}
+
+.auth-button {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-top: 5px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #162238,
+            #2b426c
+        );
+
+    font-weight: 850;
+
+    box-shadow:
+        0 10px 25px rgba(25,40,66,.16);
+
+    transition: .2s;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(25,40,66,.22);
+}
+
+.switch-auth {
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+.switch-auth span {
+    color: #5573b7;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.demo-text {
+    margin-top: 15px;
+
+    text-align: center;
+
+    color: #a0a9b8;
+
+    font-size: 10px;
+}
+
+/* =========================================================
+   MAIN APP
+   ========================================================= */
+
+.app {
+    min-height: 100vh;
+}
+
+/* TOP BAR */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        13px clamp(16px, 4vw, 55px);
+
+    background:
+        rgba(255,255,255,.85);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid rgba(30,45,70,.08);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    border: 0;
+
+    background: transparent;
+
+    color: var(--text);
+}
+
+.brand img {
+    width: 46px;
+    height: 46px;
+
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 21px;
+    font-weight: 850;
+
+    letter-spacing: -.8px;
+}
+
+.brand-name span {
+    color: #5c9bea;
+}
+
+.brand-small {
+    display: block;
+
+    margin-top: -2px;
+
+    color: #8c97a9;
+
+    font-size: 9px;
+
+    letter-spacing: 1.4px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.ghost-button {
+    padding: 10px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 750;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-weight: 850;
+
+    background:
+        linear-gradient(
+            135deg,
+            #17243a,
+            #6d88bd
+        );
+
+    box-shadow:
+        0 8px 20px rgba(30,45,70,.20);
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+    width: min(1180px, 100%);
+
+    margin: auto;
+
+    padding:
+        34px clamp(15px, 4vw, 42px)
+        120px;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        1.2fr .8fr;
+
+    gap: 30px;
+
+    padding:
+        clamp(28px, 5vw, 58px);
+
+    overflow: hidden;
+
+    border-radius: 35px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(121,186,255,.30),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 75% 90%,
+            rgba(239,130,179,.20),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #101827,
+            #263b62 65%,
+            #344b75
+        );
+
+    box-shadow:
+        0 30px 80px rgba(20,32,52,.23);
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    right: -100px;
+    top: -100px;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 35px rgba(255,255,255,.025),
+        0 0 0 70px rgba(255,255,255,.018);
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #8de1c1;
+
+    box-shadow:
+        0 0 0 5px rgba(141,225,193,.10);
+}
+
+.hero h1 {
+    max-width: 700px;
+
+    margin:
+        22px 0 18px;
+
+    font-size:
+        clamp(39px, 6vw, 65px);
+
+    line-height: .98;
+
+    letter-spacing: -3px;
+}
+
+.hero h1 span {
+    color: #a9d4ff;
+}
+
+.hero p {
+    max-width: 610px;
+
+    color: #d3dceb;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+.hero-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 26px;
+}
+
+.primary-button {
+    padding: 13px 18px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    color: #192238;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffdb8a,
+            #ffbd99 55%,
+            #f49ec0
+        );
+
+    font-weight: 850;
+
+    box-shadow:
+        0 10px 25px rgba(255,185,145,.20);
+
+    transition: .2s;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    padding: 12px 17px;
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    border-radius: 15px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-weight: 750;
+}
+
+/* HERO ART */
+
+.hero-art {
+    display: grid;
+
+    place-items: center;
+}
+
+.orbit {
+    position: relative;
+
+    width: 230px;
+    height: 230px;
+
+    border:
+        1px solid rgba(255,255,255,.15);
+
+    border-radius: 50%;
+}
+
+.orbit::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 28px;
+
+    border:
+        1px dashed rgba(255,255,255,.18);
+
+    border-radius: 50%;
+}
+
+.orbit::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 72px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8dc9ff,
+            #f1a2c5
+        );
+
+    box-shadow:
+        0 0 40px rgba(150,200,255,.35);
+}
+
+.orbit-card {
+    position: absolute;
+
+    z-index: 2;
+
+    padding: 10px 13px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    border:
+        1px solid rgba(255,255,255,.17);
+
+    backdrop-filter:
+        blur(10px);
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+.orbit-one {
+    left: -25px;
+    top: 35px;
+}
+
+.orbit-two {
+    right: -35px;
+    top: 80px;
+}
+
+.orbit-three {
+    left: 25px;
+    bottom: 20px;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section-heading {
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin:
+        36px 0 17px;
+}
+
+.section-heading h2 {
+    font-size: 25px;
+
+    letter-spacing: -.8px;
+}
+
+.section-heading p {
+    margin-top: 5px;
+
+    color: var(--text-light);
+
+    font-size: 12px;
+}
+
+.section-link {
+    color: #5872b7;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 17px;
+}
+
+.card {
+    background:
+        rgba(255,255,255,.90);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--soft-shadow);
+}
+
+/* PERSON CARD */
+
+.person-card {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 19px;
+}
+
+.person-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 0;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--pink),
+            var(--peach)
+        );
+}
+
+.person-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.person-avatar {
+    width: 55px;
+    height: 55px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 18px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 850;
+
+    background:
+        linear-gradient(
+            135deg,
+            #243552,
+            #7795ca
+        );
+}
+
+.person-name {
+    font-size: 16px;
+
+    font-weight: 850;
+}
+
+.person-role {
+    margin-top: 3px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+.match {
+    margin-left: auto;
+
+    padding: 6px 8px;
+
+    border-radius: 999px;
+
+    color: #398a6a;
+
+    background: #eef8f3;
+
+    font-size: 10px;
+
+    font-weight: 850;
+}
+
+.person-bio {
+    margin:
+        15px 0;
+
+    color: #69778d;
+
+    font-size: 12px;
+
+    line-height: 1.55;
+}
+
+.tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+}
+
+.tag {
+    padding: 6px 9px;
+
+    border:
+        1px solid #e7ebf2;
+
+    border-radius: 9px;
+
+    color: #526078;
+
+    background: #f6f8fb;
+
+    font-size: 10px;
+
+    font-weight: 750;
+}
+
+.card-action {
+    width: 100%;
+    margin-top: 16px;
+    padding: 11px;
+    border: 1px solid #dfe5ef;
+    border-radius: 13px;
+    color: #34415a;
+    background: white;
+    font-size: 12px;
+    font-weight: 850;
+    transition: .2s;
+}
+
+/* Single-person chat Send button */
+#chatInput + button.card-action {
+    width: 90px;
+    margin-top: 0;
+    padding: 8px 14px;
+    flex: 0 0 90px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+}
+.card-action:hover {
+    background: #f5f7fb;
+}
+
+.card-action.connected {
+    color: #39896a;
+
+    border-color: #cce9da;
+
+    background: #eaf8f1;
+}
+
+/* =========================================================
+   FEATURES
+   ========================================================= */
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+}
+
+.feature {
+    min-height: 150px;
+
+    padding: 20px;
+}
+
+.feature-icon {
+    width: 43px;
+    height: 43px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #edf6ff,
+            #fff0f5
+        );
+
+    font-size: 20px;
+}
+
+.feature h3 {
+    margin-bottom: 6px;
+
+    font-size: 14px;
+}
+
+.feature p {
+    color: var(--text-light);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+/* =========================================================
+   FIND PAGE
+   ========================================================= */
+
+.search-container {
+    display: flex;
+
+    gap: 10px;
+
+    margin:
+        18px 0;
+}
+
+.search-container input {
+    flex: 1;
+
+    padding: 14px 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background: white;
+
+    color: var(--text);
+}
+
+.search-container input:focus {
+    border-color: #91b8ed;
+
+    box-shadow:
+        0 0 0 4px rgba(121,186,255,.12);
+}
+
+.filters {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
+}
+
+.filter {
+    padding: 8px 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 999px;
+
+    color: #69768b;
+
+    background: white;
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+.filter.active {
+    color: white;
+
+    border-color: var(--navy);
+
+    background: var(--navy);
+}
+
+/* =========================================================
+   TEAM CARDS
+   ========================================================= */
+
+.team-card {
+    padding: 21px;
+}
+
+.team-head {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.team-title {
+    font-size: 18px;
+
+    font-weight: 850;
+}
+
+.team-subtitle {
+    margin-top: 5px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+.team-count {
+    height: fit-content;
+
+    padding: 7px 9px;
+
+    border-radius: 999px;
+
+    color: #5571ad;
+
+    background: #f1f6ff;
+
+    font-size: 10px;
+
+    font-weight: 850;
+}
+
+.team-description {
+    margin:
+        17px 0;
+
+    color: #69778d;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+.team-members {
+    display: flex;
+
+    margin-bottom: 17px;
+}
+
+.mini-avatar {
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    margin-left: -8px;
+
+    border:
+        3px solid white;
+
+    border-radius: 50%;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #536dfe,
+            #83baff
+        );
+
+    font-size: 10px;
+
+    font-weight: 850;
+}
+
+.mini-avatar:first-child {
+    margin-left: 0;
+}
+
+.join-button {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    color: white;
+
+    background: var(--navy);
+
+    font-size: 11px;
+
+    font-weight: 850;
+}
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile-layout {
+    display: grid;
+
+    grid-template-columns: 310px 1fr;
+
+    gap: 20px;
+}
+
+.profile-card {
+    padding: 25px;
+
+    text-align: center;
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+
+    display: grid;
+    place-items: center;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 31px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #17243a,
+            #6986bb
+        );
+
+    font-size: 31px;
+
+    font-weight: 850;
+
+    box-shadow:
+        0 15px 30px rgba(35,53,85,.18);
+}
+
+.profile-card h2 {
+    font-size: 23px;
+}
+
+.profile-role {
+    margin:
+        6px 0 18px;
+
+    color: var(--text-light);
+
+    font-size: 11px;
+}
+
+.profile-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+}
+
+.stat {
+    padding: 11px 5px;
+
+    border-radius: 13px;
+
+    background: #f6f8fb;
+}
+
+.stat strong {
+    display: block;
+
+    font-size: 17px;
+}
+
+.stat span {
+    color: var(--text-light);
+
+    font-size: 9px;
+}
+
+.profile-main {
+    padding: 26px;
+}
+
+.profile-main h3 {
+    margin-bottom: 12px;
+
+    font-size: 18px;
+}
+
+.profile-main p {
+    margin-bottom: 25px;
+
+    color: #68768e;
+
+    font-size: 12px;
+
+    line-height: 1.75;
+}
+
+.skills {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 25px;
+}
+
+.skill {
+    padding: 8px 11px;
+
+    border:
+        1px solid #e1e9f9;
+
+    border-radius: 10px;
+
+    color: #4e6697;
+
+    background: #f3f7ff;
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+/* =========================================================
+   SUPPORT SECTION
+   ========================================================= */
+
+.support-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 25px;
+
+    padding: 18px;
+
+    border-radius: 20px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(121,186,255,.20),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #101827,
+            #2b426a
+        );
+}
+
+.support-logo {
+    width: 60px;
+    height: 60px;
+
+    flex-shrink: 0;
+
+    object-fit: contain;
+
+    padding: 5px;
+
+    border-radius: 16px;
+
+    background: white;
+}
+
+.support-content {
+    flex: 1;
+}
+
+.support-content h4 {
+    margin-bottom: 5px;
+
+    font-size: 14px;
+}
+
+.support-content p {
+    margin: 0 !important;
+
+    color: #c2ccdc !important;
+
+    font-size: 10px !important;
+}
+
+.support-button {
+    padding: 9px 12px;
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    border-radius: 11px;
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.10);
+
+    font-size: 11px;
+
+    font-weight: 750;
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION
+   ========================================================= */
+
+.bottom-nav {
+    position: fixed;
+
+    z-index: 200;
+
+    left: 50%;
+    bottom: 18px;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    gap: 4px;
+
+    padding: 7px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 21px;
+
+    background:
+        rgba(16,24,39,.94);
+
+    box-shadow:
+        0 18px 50px rgba(12,20,34,.25);
+
+    backdrop-filter:
+        blur(18px);
+}
+
+.nav-item {
+    min-width: 72px;
+
+    padding: 9px 15px;
+
+    border: 0;
+
+    border-radius: 15px;
+
+    color: #9ba9bf;
+
+    background: transparent;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    transition: .2s;
+}
+
+
+.nav-item.active {
+    color: #17243a;
+
+    background: white;
+}
+
+.nav-icon {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 24px;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+    position: fixed;
+
+    z-index: 500;
+
+    right: 22px;
+    bottom: 92px;
+
+    padding:
+        13px 16px;
+
+    border-radius: 14px;
+
+    color: white;
+
+    background: var(--navy);
+
+    box-shadow:
+        0 16px 40px rgba(18,28,45,.25);
+
+    font-size: 11px;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    pointer-events: none;
+
+    transition: .3s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: none;
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-art {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .feature-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-container {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-showcase {
+        display: none;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — PHONE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    .topbar {
+        padding:
+            10px 15px;
+    }
+
+    .brand-small {
+        display: none;
+    }
+
+    .brand-name {
+        font-size: 19px;
+    }
+
+    .top-actions .ghost-button {
+        display: none;
+    }
+
+    .page {
+        padding:
+            20px 14px 110px;
+    }
+
+    .hero {
+        padding:
+            28px 22px;
+
+        border-radius: 26px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+
+        letter-spacing: -2.3px;
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .cards,
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        margin-top: 28px;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-container .primary-button {
+        width: 100%;
+    }
+
+    .bottom-nav {
+        width:
+            calc(100% - 20px);
+
+        bottom: 10px;
+
+        justify-content: space-around;
+    }
+
+    .nav-item {
+        min-width: 0;
+
+        flex: 1;
+
+        padding:
+            8px 5px;
+    }
+
+    .support-box {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+    .support-button {
+        margin-left: auto;
+    }
+
+    .auth {
+        padding: 12px;
+    }
+
+    .auth-form {
+        padding:
+            32px 22px;
+    }
+}
+/* =========================================================
+   GLASS HOVER EFFECT
+   ========================================================= */
+
+/* Smooth movement for cards */
+.card,
+.person-card,
+.team-card,
+.feature,
+.profile-card,
+.profile-main {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 0.35s cubic-bezier(.22, 1, .36, 1),
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
+}
+
+
+/* Glass reflection layer */
+.card::before,
+.person-card::before,
+.team-card::before,
+.feature::before {
+    content: "";
+
+    position: absolute;
+
+    top: -120%;
+    left: -80%;
+
+    width: 60%;
+    height: 300%;
+
+    transform: rotate(25deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        left .7s ease,
+        opacity .3s ease;
+}
+
+
+/* Hover */
+.card:hover,
+.person-card:hover,
+.team-card:hover,
+.feature:hover,
+.profile-card:hover,
+.profile-main:hover {
+
+    transform:
+        translateY(-7px)
+        scale(1.012);
+
+    border-color:
+        rgba(255,255,255,.75);
+
+    background:
+        rgba(255,255,255,.78);
+
+    box-shadow:
+        0 25px 55px rgba(30,45,70,.14),
+        0 5px 15px rgba(121,186,255,.08);
+
+    backdrop-filter:
+        blur(20px);
+
+    -webkit-backdrop-filter:
+        blur(20px);
+}
+
+
+/* Moving glass reflection */
+.card:hover::before,
+.person-card:hover::before,
+.team-card:hover::before,
+.feature:hover::before {
+
+    left: 130%;
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   GLASS BUTTON EFFECT
+   ========================================================= */
+
+.primary-button,
+.secondary-button,
+.ghost-button,
+.card-action,
+.join-button,
+.support-button,
+.nav-item {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s cubic-bezier(.22,1,.36,1),
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+
+/* Small lift */
+.primary-button:hover,
+.secondary-button:hover,
+.ghost-button:hover,
+.card-action:hover,
+.join-button:hover,
+.support-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 28px rgba(30,45,70,.16);
+}
+
+
+/* Glass shine */
+.primary-button::after,
+.secondary-button::after,
+.ghost-button::after,
+.card-action::after,
+.join-button::after,
+.support-button::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    transform: skewX(-20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.38),
+            transparent
+        );
+
+    transition:
+        left .6s ease;
+
+    pointer-events: none;
+}
+
+
+.primary-button:hover::after,
+.secondary-button:hover::after,
+.ghost-button:hover::after,
+.card-action:hover::after,
+.join-button:hover::after,
+.support-button:hover::after {
+
+    left: 140%;
+}
+
+
+/* =========================================================
+    GLASS TOP BAR
+   ========================================================= */
+
+.topbar {
+
+    background:
+        rgba(255,255,255,.68);
+
+    backdrop-filter:
+        blur(25px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(25px)
+        saturate(150%);
+
+    box-shadow:
+        0 8px 30px rgba(20,30,50,.06);
+
+    transition:
+        background .3s ease,
+        box-shadow .3s ease;
+}
+
+
+/* =========================================================
+   GLASS NAV
+   ========================================================= */
+
+.bottom-nav {
+
+    background:
+        rgba(16,24,39,.72);
+
+    backdrop-filter:
+        blur(25px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(25px)
+        saturate(150%);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    box-shadow:
+        0 20px 60px rgba(10,18,32,.30);
+}
+
+
+/* Nav hover */
+
+.nav-item:hover {
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.10);
+
+    transform:
+        translateY(-3px);
+}
+
+
+.nav-item.active:hover {
+
+    color: #17243a;
+
+    background:
+        rgba(255,255,255,.95);
+
+    transform:
+        translateY(-4px);
+}
+
+
+/* =========================================================
+   AVATAR HOVER
+   ========================================================= */
+
+.avatar,
+.person-avatar,
+.profile-avatar-large,
+.mini-avatar {
+
+    transition:
+        transform .35s cubic-bezier(.22,1,.36,1),
+        box-shadow .35s ease;
+}
+
+
+.avatar:hover,
+.person-avatar:hover,
+.profile-avatar-large:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.05);
+
+    box-shadow:
+        0 15px 35px rgba(40,60,100,.22);
+}
+
+
+/* =========================================================
+   LOGO HOVER
+   ========================================================= */
+
+.brand img,
+.auth-logo,
+.support-logo {
+
+    transition:
+        transform .4s cubic-bezier(.22,1,.36,1),
+        filter .4s ease;
+}
+
+
+.brand:hover img {
+
+    transform:
+        translateY(-3px)
+        rotate(-2deg)
+        scale(1.06);
+
+    filter:
+        drop-shadow(
+            0 8px 15px rgba(70,110,180,.20)
+        );
+}
+
+
+/* =========================================================
+   HERO GLASS BUTTON
+   ========================================================= */
+
+.hero .primary-button:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.025);
+
+    box-shadow:
+        0 18px 35px rgba(255,185,145,.28);
+}
+
+
+.hero .secondary-button:hover {
+
+    background:
+        rgba(255,255,255,.14);
+
+    border-color:
+        rgba(255,255,255,.28);
+
+    transform:
+        translateY(-5px);
+}
+
+
+/* =========================================================
+   REDUCE MOTION FOR ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        transition: none !important;
+
+        animation: none !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   HACKMATES MODULES - ADDED WITHOUT CHANGING EXISTING COLORS
+   ========================================================= */
+
+.top-tool-button {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255,255,255,.78);
+    color: var(--text);
+    font-size: 19px;
+    line-height: 1;
+    transition: transform .3s cubic-bezier(.22,1,.36,1),
+                box-shadow .3s ease,
+                background .3s ease;
+}
+
+.top-tool-button:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: var(--soft-shadow);
+    background: rgba(255,255,255,.95);
+}
+
+.tool-icon {
+    font-family: Georgia, serif;
+    transform: rotate(-8deg);
+    display: inline-block;
+}
+.tool-icon svg {
+    transform: rotate(8deg);
+}
+
+.notification-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ef82b3;
+    border: 2px solid white;
+}
+
+.tool-wrap { position: relative; }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.dashboard-stat {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: blur(14px);
+    box-shadow: var(--soft-shadow);
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.dashboard-stat strong {
+    display: block;
+    font-size: 27px;
+    letter-spacing: -.8px;
+}
+
+.dashboard-stat span {
+    color: var(--text-light);
+    font-size: 11px;
+}
+
+.person-card,
+.team-card {
+    cursor: pointer;
+}
+
+.person-card .card-action,
+.team-card .join-button {
+    position: relative;
+    z-index: 2;
+}
+
+.location-line {
+    margin-top: 7px;
+    color: var(--text-light);
+    font-size: 11px;
+}
+
+.advanced-filters {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 12px 0 18px;
+}
+
+.advanced-filters select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: rgba(255,255,255,.8);
+    color: var(--text);
+    outline: none;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    background: rgba(16,24,39,.28);
+    backdrop-filter: blur(12px);
+}
+
+.modal-backdrop.hidden { display: none !important; }
+
+.modal-card {
+    width: min(620px, 100%);
+    max-height: min(760px, 90vh);
+    overflow: auto;
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 26px;
+    background: rgba(255,255,255,.90);
+    box-shadow: 0 30px 90px rgba(20,32,52,.25);
+    animation: modalIn .35s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(15px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.modal-head h3 { font-size: 22px; letter-spacing: -.6px; }
+
+.close-modal {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: white;
+    color: var(--text);
+    font-size: 18px;
+}
+
+.modal-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-item:last-child { border-bottom: 0; }
+
+.modal-item strong { display: block; margin-bottom: 4px; }
+.modal-item p { color: var(--text-light); font-size: 12px; line-height: 1.6; }
+
+.pencil-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 0;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+}
+
+.pencil-option:hover { transform: translateX(4px); }
+.pencil-option .tool-icon { font-size: 20px; }
+
+.request-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.request-actions button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    font-weight: 750;
+}
+
+@media (max-width: 760px) {
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .advanced-filters { grid-template-columns: 1fr; }
+    .top-actions .ghost-button { display: none; }
+    .top-tool-button { width: 38px; height: 38px; }
+    .modal-card { padding: 20px; }
+}
+/* =====================================================
+   SKILL DONUT
+===================================================== */
+
+.skill-overview {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-left: auto;
+}
+
+.skill-donut {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.skill-donut::before {
+    content: "";
+
+    position: absolute;
+
+    width: 62px;
+    height: 62px;
+
+    background: white;
+    border-radius: 50%;
+}
+
+.skill-donut-inner {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-donut-inner strong {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.skill-donut-inner span {
+    font-size: 11px;
+    margin-top: 3px;
+    color: #64748b;
+}
+
+.skill-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skill-legend-row {
+    display: grid;
+    grid-template-columns: 12px auto 18px;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+}
+.profile-popup-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    min-height: 130px;
+}
+
+/* =====================================================
+   LEGEND
+===================================================== */
+
+.skill-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skill-legend-row {
+    display: grid;
+
+    grid-template-columns: 14px auto 25px;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 15px;
+}
+
+.skill-legend-row strong {
+    text-align: right;
+}
+
+
+/* =====================================================
+   LEGEND DOTS
+===================================================== */
+
+.legend-dot {
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    display: inline-block;
+}
+
+.legend-dot.beginner {
+    background: #ef4444;
+}
+
+.legend-dot.intermediate {
+    background: #f59e0b;
+}
+
+.legend-dot.pro {
+    background: #10b981;
+}
+
+
+/* =====================================================
+   SKILL TAGS
+===================================================== */
+
+.skill-level-tag {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    margin: 5px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    background: white;
+
+    font-weight: 600;
+}
+
+.skill-level-tag small {
+    padding: 4px 8px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.skill-level-tag small.beginner {
+    color: #dc2626;
+    background: #fee2e2;
+}
+
+.skill-level-tag small.intermediate {
+    color: #d97706;
+    background: #fef3c7;
+}
+
+.skill-level-tag small.pro {
+    color: #059669;
+    background: #d1fae5;
+}
+.edit-skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#completedHackathonModal {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    #completedHackathonModal .modal-content {
+        position: relative;
+        width: min(700px, 95%);
+        max-height: 85vh;
+        overflow-y: auto;
+        background: white;
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    #completedHackathonModal .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        border: none;
+        background: none;
+        font-size: 28px;
+        cursor: pointer;
+    }
+
+.team-chat-button {
+    background: #eaf8f1;
+    color: #348b6b;
+    border: 1px solid #c5e8d7;
+    border-radius: 22px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.team-chat-button:hover {
+    background: #d9f1e5;
+}
+/* Single-person chat Send button */
+#chatModal button[type="submit"] {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+}
+
+#chatModal button[type="submit"]:hover {
+    background-color: #222222;
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SPLASH
+     ========================================================= -->
+
+<div class="splash" id="splash">
+
+    <div class="splash-content">
+
+        <img
+            src="hackmate-logo.jpg"
+            class="splash-logo"
+            alt="HackMates Logo"
+        >
+
+        <div class="splash-title">
+            Hack<span>Mates</span>
+        </div>
+
+        <div class="splash-subtitle">
+            SHARE IDEAS · BUILD TOGETHER
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LOGIN PAGE
+     ========================================================= -->
+
+<section class="auth" id="loginPage">
+
+    <div class="auth-container">
+
+        <div class="auth-showcase">
+
+            <img
+                src="hackmate-logo.jpg"
+                class="auth-logo"
+                alt="HackMates Logo"
+            >
+
+            <h1>
+                Build something
+                <br>
+                <span>great together.</span>
+            </h1>
+
+            <p>
+                Find people who complement your skills,
+                discover exciting hackathon ideas and turn
+                a group of strangers into a real team.
+            </p>
+
+            <div class="auth-quote">
+                “The best ideas become better when
+                different minds build them together.”
+            </div>
+
+        </div>
+
+
+        <div class="auth-form">
+
+            <h2>Welcome back</h2>
+
+            <p class="auth-description">
+                Sign in to continue to your HackMate workspace.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="••••••••"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    class="auth-button"
+                    type="submit"
+                >
+                    Enter HackMate →
+                </button>
+
+            </form>
+
+
+            <div class="switch-auth">
+
+                New to HackMate?
+
+                <span onclick="showRegister()">
+                    Create an account
+                </span>
+
+            </div>
+
+
+            <div class="demo-text">
+                Demo login: any valid email + any password
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     REGISTER PAGE
+     ========================================================= -->
+
+<section
+    class="auth hidden"
+    id="registerPage"
+>
+
+    <div class="auth-container">
+
+        <div class="auth-showcase">
+
+            <img
+                src="hackmate-logo.jpg"
+                class="auth-logo"
+                alt="HackMates Logo"
+            >
+
+            <h1>
+                Your next
+                <br>
+                <span>team starts here.</span>
+            </h1>
+
+            <p>
+                Create your profile and discover developers,
+                designers, presenters, analysts and idea people.
+            </p>
+
+            <div class="auth-quote">
+                A calm space for ambitious people to find
+                the right collaborators.
+            </div>
+
+        </div>
+
+
+        <div class="auth-form">
+
+            <h2>Create account</h2>
+
+            <p class="auth-description">
+                Create your HackMate profile in less than a minute.
+            </p>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+
+                    <label>Full name</label>
+
+                    <input
+                        type="text"
+                        id="registerName"
+                        placeholder="Your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    class="auth-button"
+                    type="submit"
+                >
+                    Create my profile →
+                </button>
+
+            </form>
+
+
+            <div class="switch-auth">
+
+                Already have an account?
+
+                <span onclick="showLogin()">
+                    Sign in
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAIN APP
+     ========================================================= -->
+
+<div
+    class="app hidden"
+    id="app"
+>
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <button
+            class="brand"
+            onclick="showPage('home')"
+        >
+
+            <img
+                src="hackmate-logo.jpg"
+                alt="HackMates"
+            >
+
+            <div>
+
+                <div class="brand-name">
+                    Hack<span>Mates</span>
+                </div>
+
+                <small class="brand-small">
+                    SHARE IDEAS · BUILD TOGETHER
+                </small>
+
+            </div>
+
+        </button>
+
+
+        <div class="top-actions">
+
+            <button
+                class="ghost-button"
+                onclick="showPage('find')"
+            >
+                Find teammates
+            </button>
+
+            <div class="tool-wrap">
+                <button class="top-tool-button" onclick="openNotifications()" aria-label="Notifications">
+                    <span class="tool-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="26"
+     height="26"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.3"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/>
+
+    <path d="M10 21h4"/>
+</svg>
+                    </span>
+                    <span class="notification-dot hidden" id="notificationDot"></span>
+                </button>
+            </div>
+
+            <button class="top-tool-button" onclick="openSettings()" aria-label="Settings">
+                <span class="tool-icon"><svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     width="28"
+     height="28"
+     fill="none"
+     stroke="currentColor"
+     stroke-width="1.3"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+    <path d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65
+             c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.37-.31-.6-.22l-2.49 1
+             c-.52-.4-1.08-.73-1.69-.98L14.5 2.42C14.47 2.18 14.25 2 14 2h-4
+             c-.25 0-.46.18-.5.42L9.12 5.07c-.61.25-1.17.59-1.69.98l-2.49-1
+             c-.23-.08-.48 0-.6.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65
+             c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65
+             c-.19.15-.24.42-.12.64l2 3.46c.12.22.37.31.6.22l2.49-1
+             c.52.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4
+             c.25 0 .46-.18.5-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1
+             c.23.08.48 0 .6-.22l2-3.46c.12-.22.07-.49-.12-.64z"/>
+
+    <circle cx="12" cy="12" r="3.5"/>
+</svg>
+</span>
+            </button>
+
+            <div
+                class="avatar"
+                id="topAvatar"
+                onclick="showPage('profile')"
+                title="Open profile"
+            >
+                B
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+
+    <main class="page">
+
+
+        <!-- =================================================
+             HOME
+             ================================================= -->
+
+        <section id="homePage">
+
+            <div class="hero">
+
+                <div>
+
+                    <div class="eyebrow">
+
+                        <span class="status-dot"></span>
+
+                        Your hackathon circle
+
+                    </div>
+
+
+                    <h1>
+
+                        Good ideas need
+                        <span>great people.</span>
+
+                    </h1>
+
+
+                    <p>
+
+                        Discover teammates by skills,
+                        interests and working style.
+                        Build a team that feels balanced,
+                        focused and genuinely exciting.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <button
+                            class="primary-button"
+                            onclick="showPage('find')"
+                        >
+                            Find my teammates
+                        </button>
+
+
+                        <button
+                            class="secondary-button"
+                            onclick="showPage('teams')"
+                        >
+                            Explore teams
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-art">
+
+                    <div class="orbit">
+
+                        <div class="orbit-card orbit-one">
+                            ✦ Designer
+                        </div>
+
+                        <div class="orbit-card orbit-two">
+                            ⌘ Developer
+                        </div>
+
+                        <div class="orbit-card orbit-three">
+                            ◌ Data Mind
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DASHBOARD STATISTICS -->
+            <div class="dashboard-grid">
+                <div class="dashboard-stat">
+                    <strong id="statDevelopers">0</strong>
+                    <span>Developers</span>
+                </div>
+                <div class="dashboard-stat">
+                    <strong id="statData">0</strong>
+                    <span>Data members</span>
+                </div>
+                <div class="dashboard-stat">
+                    <strong id="statDesigners">0</strong>
+                    <span>Designers</span>
+                </div>
+                <div class="dashboard-stat">
+                    <strong id="statTeams">0</strong>
+                    <span>Teams available</span>
+                </div>
+            </div>
+
+
+            <!-- PEOPLE -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        People you may click with
+                    </h2>
+
+                    <p>
+                        Based on complementary skills and interests.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="section-link"
+                    onclick="showPage('find')"
+                >
+                    View all →
+                </div>
+
+            </div>
+
+
+            <div
+                class="cards"
+                id="homePeople"
+            ></div>
+
+
+            <!-- FEATURES -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Why HackMate
+                    </h2>
+
+                    <p>
+                        Designed to make team formation easier.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="card feature">
+
+                    <div class="feature-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Skill balance
+                    </h3>
+
+                    <p>
+                        Find people whose skills complete yours
+                        instead of simply duplicating them.
+                    </p>
+
+                </div>
+
+
+                <div class="card feature">
+
+                    <div class="feature-icon">
+                        ◈
+                    </div>
+
+                    <h3>
+                        Better discovery
+                    </h3>
+
+                    <p>
+                        Search by technology, role, interests
+                        or the teammate you need.
+                    </p>
+
+                </div>
+
+
+                <div class="card feature">
+
+                    <div class="feature-icon">
+                        ∞
+                    </div>
+
+                    <h3>
+                        Build together
+                    </h3>
+
+                    <p>
+                        Create teams around ideas and keep
+                        everyone aligned.
+                    </p>
+
+                </div>
+
+
+                <div class="card feature">
+
+                    <div class="feature-icon">
+                        ☼
+                    </div>
+
+                    <h3>
+                        Calm interface
+                    </h3>
+
+                    <p>
+                        A peaceful visual space that keeps
+                        the focus on people and ideas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FIND
+             ================================================= -->
+
+        <section
+            id="findPage"
+            class="hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Find teammates
+                    </h2>
+
+                    <p>
+                        Search for the skill or role your team needs.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="search-container">
+
+                <input
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search Python, UI/UX, AI, presenter..."
+                    oninput="renderPeople()"
+                >
+
+                <button
+                    class="primary-button"
+                    onclick="renderPeople()"
+                >
+                    Search
+                </button>
+
+            </div>
+
+
+            <div class="filters">
+
+                <button
+                    class="filter active"
+                    onclick="setFilter(this,'All')"
+                >
+                    All
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="setFilter(this,'Developer')"
+                >
+                    Developers
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="setFilter(this,'Designer')"
+                >
+                    Designers
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="setFilter(this,'Data')"
+                >
+                    Data
+                </button>
+
+                <button
+                    class="filter"
+                    onclick="setFilter(this,'Presenter')"
+                >
+                    Presenters
+                </button>
+
+            </div>
+
+
+            <div class="advanced-filters">
+                <select id="roleFilter" onchange="renderPeople()">
+                    <option value="All">All roles</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Data">Data</option>
+                    <option value="Presenter">Presenter</option>
+                </select>
+                <select id="locationFilter" onchange="renderPeople()">
+                    <option value="All">All locations</option>
+                    <option value="Tumkur">Tumkur</option>
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Mysuru">Mysuru</option>
+                </select>
+                <select id="skillFilter" onchange="renderPeople()">
+                    <option value="All">All skills</option>
+                    <option value="Python">Python</option>
+                    <option value="React">React</option>
+                    <option value="UI/UX">UI/UX</option>
+                    <option value="SQL">SQL</option>
+                    <option value="ML">ML</option>
+                </select>
+            </div>
+
+            <div
+                class="cards"
+                id="peopleGrid"
+            ></div>
+
+        </section>
+
+
+        <!-- =================================================
+             TEAMS
+             ================================================= -->
+
+        <section
+            id="teamsPage"
+            class="hidden"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Teams & Ideas
+                    </h2>
+
+                    <p>
+                        See what other builders are creating.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    onclick="openCreateTeamModal()"
+                >
+                    ＋ Create team
+                </button>
+
+            </div>
+
+
+            <div
+                class="cards"
+                id="teamsGrid"
+            ></div>
+
+        </section>
+
+<section
+    id="hackathonsDonePage"
+    class="hidden"
+>
+
+    <div class="section-heading">
+
+        <div>
+            <h2>
+                Hackathons Done
+            </h2>
+
+            <p>
+                Explore completed hackathons and their winners.
+            </p>
+        </div>
+
+    </div>
+
+    <div
+        class="cards"
+        id="hackathonsDoneGrid"
+    ></div>
+
+</section>
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+
+        <section
+            id="profilePage"
+            class="hidden"
+        >
+
+            <div class="profile-layout">
+
+
+                <!-- PROFILE CARD -->
+
+                <aside class="card profile-card">
+
+                    <div
+                        class="profile-avatar-large"
+                        id="profileAvatar"
+                    >
+                        B
+                    </div>
+
+
+                    <h2 id="profileName">
+                        Bhuvan
+                    </h2>
+
+
+                    <div class="profile-role" id = "profileRole">
+                        ROle not set.
+                    </div>
+                    <div class="location-line" id="profileLocation">
+                         Location not set
+                    </div>
+
+                    <div class="profile-stats">
+
+                        <div class="stat">
+
+                            <strong id="connectionCount">
+                                0
+                            </strong>
+
+                            <span>
+                                Connections
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <strong id = "profileSkillCount">
+                                0
+                            </strong>
+
+                            <span>
+                                Skills
+                            </span>
+
+                        </div>
+
+
+                        <div class="stat">
+
+                            <strong id="profileTeamCount">
+                                1
+                            </strong>
+
+                            <span>
+                                Team
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="card-action"
+                        onclick="editProfile()"
+                    >
+                        Edit profile
+                    </button>
+
+
+                    <button
+                        class="card-action"
+                        onclick="logout()"
+                    >
+                        Log out
+                    </button>
+
+                </aside>
+
+
+                <!-- PROFILE DETAILS -->
+
+                <div class="card profile-main">
+
+                    <h3>
+                        About me
+                    </h3>
+
+                    <p id = "profileBio">
+                        no bio added yet.
+                    </p>
+
+
+                    <h3>
+                        Skills
+                    </h3>
+
+
+                    <div class="skills" id="profileSkills">
+                        <!-- Skills will be dynamically added here -->
+
+                    </div>
+
+
+                    <h3>
+                        What I'm looking for
+                    </h3>
+
+                    <p>
+
+                        A motivated team with a useful problem,
+                        clear communication and people who are
+                        willing to learn from one another.
+
+                    </p>
+
+
+                    <!-- SUPPORT / LOGO ACTION -->
+
+                    <div class="support-box">
+
+                        <img
+                            src="hackmate-logo.jpg"
+                            class="support-logo"
+                            alt="HackMates Logo"
+                        >
+
+
+                        <div class="support-content">
+
+                            <h4>
+                                Support the HackMate project
+                            </h4>
+
+                            <p>
+                                Keep the HackMate identity visible
+                                while you build and share the project.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            class="support-button"
+                            onclick="supportHackMate()"
+                        >
+                            Support ↗
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         BOTTOM NAV
+         ===================================================== -->
+
+    <nav class="bottom-nav">
+
+        <button
+            class="nav-item active"
+            data-page="home"
+            onclick="showPage('home')"
+        >
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 10.5 12 3l9 7.5"/>
+        <path d="M5 9.5V21h14V9.5"/>
+    </svg>
+</span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="find"
+            onclick="showPage('find')"
+        >
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.8" cy="10.8" r="6.3"/>
+        <path d="m16 16 4.5 4.5"/>
+    </svg>
+</span>
+        </button>
+
+<button
+    class="nav-item"
+    data-page="hackathonsDone"
+    onclick="showPage('hackathonsDone')"
+>
+    <span class="tool-icon">
+        <svg viewBox="0 0 24 24" width="28" height="28"
+             fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+
+            <path d="M7 4h10v4a5 5 0 0 1-10 0V4z"/>
+            <path d="M9 4V2h6v2"/>
+            <path d="M12 13v5"/>
+            <path d="M8 21h8"/>
+            <path d="M9 18h6"/>
+
+        </svg>
+    </span>
+</button>
+        <button
+            class="nav-item"
+            data-page="teams"
+            onclick="showPage('teams')"
+        >
+            <span class="nav-icon">
+                <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="30" height="30"
+         fill="none" stroke="currentColor" stroke-width="1.4"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="8" r="3"/>
+        <circle cx="17" cy="9" r="2.5"/>
+        <path d="M3.5 19c.5-3.2 2.3-5 5.5-5s5 1.8 5.5 5"/>
+        <path d="M14.5 15c2.8-.5 5 .8 6 3.5"/>
+    </svg>
+</span>
+            </span>
+        </button>
+
+
+        <button
+            class="nav-item"
+            data-page="profile"
+            onclick="showPage('profile')"
+        >
+            
+                <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28"
+         fill="none" stroke="currentColor" stroke-width="1.3"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c.8-3.5 3.3-5.5 7-5.5s6.2 2 7 5.5"/>
+    </svg>
+
+            </span>
+        
+        </button>
+
+
+    </nav>
+
+</div>
+
+
+
+
+<!-- =========================================================
+     NOTIFICATIONS / SETTINGS / PROFILE / TEAM MODALS
+     ========================================================= -->
+<div class="modal-backdrop hidden" id="notificationModal" onclick="closeModalOnBackdrop(event, 'notificationModal')">
+    <div class="modal-card">
+        <div class="modal-head">
+            <h3>Notifications</h3>
+            <button class="close-modal" onclick="closeModal('notificationModal')">×</button>
+        </div>
+        <div id="notificationList"></div>
+    </div>
+</div>
+
+<div class="modal-backdrop hidden" id="settingsModal" onclick="closeModalOnBackdrop(event, 'settingsModal')">
+    <div class="modal-card">
+        <div class="modal-head">
+            <h3>Settings</h3>
+            <button class="close-modal" onclick="closeModal('settingsModal')">×</button>
+        </div>
+        <button class="pencil-option" onclick="editProfile(); closeModal('settingsModal')">
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/>
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/>
+    </svg>
+</span>
+<span>Edit profile</span>
+        </button>
+        <button class="pencil-option" onclick="showPage('profile'); closeModal('settingsModal')">
+<span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c.8-3.5 3.3-5.5 7-5.5s6.2 2 7 5.5"/>
+    </svg>
+</span>My profile  </button>
+        <button class="pencil-option" onclick="showPage('find'); closeModal('settingsModal')">
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="10.8" cy="10.8" r="6.3"/>
+        <path d="m16 16 4.5 4.5"/>
+    </svg>
+</span> Find teammates
+        </button>
+        <button class="pencil-option" onclick="showPage('teams'); closeModal('settingsModal')">
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="8" r="3"/>
+        <circle cx="17" cy="9" r="2.5"/>
+        <path d="M3.5 19c.5-3.2 2.3-5 5.5-5s5 1.8 5.5 5"/>
+        <path d="M14.5 15c2.8-.5 5 .8 6 3.5"/>
+    </svg>
+</span>My teams & ideas
+        </button>
+        <button class="pencil-option" onclick="clearNotifications(); closeModal('settingsModal')">
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
+    </svg>
+</span><span>Clear notifications</span>
+        </button>
+        <button class="pencil-option" onclick="logout(); closeModal('settingsModal')">
+            <span class="tool-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+         fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 5H5v14h5"/>
+        <path d="M14 8l4 4-4 4"/>
+        <path d="M18 12H9"/>
+    </svg>
+</span><span>Log out</span>
+        </button>
+    </div>
+</div>
+
+<div class="modal-backdrop hidden" id="profileModal" onclick="closeModalOnBackdrop(event, 'profileModal')">
+    <div class="modal-card">
+        <div class="modal-head">
+            <h3 id="profileModalTitle">Teammate</h3>
+            <button class="close-modal" onclick="closeModal('profileModal')">×</button>
+        </div>
+        <div id="profileModalContent"></div>
+    </div>
+</div>
+
+<div class="modal-backdrop hidden" id="teamModal" onclick="closeModalOnBackdrop(event, 'teamModal')">
+    <div class="modal-card">
+        <div class="modal-head">
+            <h3 id="teamModalTitle">Team</h3>
+            <button class="close-modal" onclick="closeModal('teamModal')">×</button>
+        </div>
+        <div id="teamModalContent"></div>
+    </div>
+</div>
+
+<div class="modal-backdrop hidden" id="chatModal" onclick="closeModalOnBackdrop(event, 'chatModal')">
+    <div class="modal-card">
+
+        <div class="modal-head">
+            <h3 id="chatModalTitle">Chat</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('chatModal')"
+            >
+                ×
+            </button>
+        </div>
+
+        <div
+            id="chatMessages"
+            style="
+                max-height: 250px;
+                overflow-y: auto;
+                padding: 10px 0;
+            "
+        ></div>
+
+<div
+    style="
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 10px;
+        margin-top: 12px;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    "
+>
+
+    <input
+        type="text"
+        id="chatInput"
+        placeholder="Type a message..."
+        style="
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            height: 50px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        "
+        onkeydown="if(event.key === 'Enter') sendChatMessage()"
+    >
+
+    <button
+        class="card-action"
+        onclick="sendChatMessage()"
+        style="
+            padding: 8px 14px;
+            width: 90px;
+            height: 50px;
+            flex: 0 0 90px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid #000000;
+            border-radius: 10px;
+        "
+    >
+        Send
+    </button>
+</div>
+
+    </div>
+</div>
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+const API_BASE_URL = "http://127.0.0.1:8000";    
+
+/* =========================================================
+  DATA
+  ========================================================= */
+
+let people = [];
+
+/* =========================================================
+   COMPLETED HACKATHONS
+   Add an entry only after its details and winners are verified.
+   This list is deliberately local so it stays simple to maintain.
+   ========================================================= */
+
+let completedHackathons = [];
+// Entry shape:
+// {
+//     title, organizer,college, date, location, problemStatement,
+//     projectIdeas: [], winners: { first, second, third }
+// }
+
+
+function escapeCompletedHackathonText(value) {
+
+    return String(value || "Not announced")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+async function loadCompletedHackathons() {
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/completed-hackathons/`
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Failed to load completed hackathons"
+            );
+        }
+
+        completedHackathons =
+            await response.json();
+
+        renderCompletedHackathons();
+
+    } catch (error) {
+        console.error(
+            "Completed hackathons error:",
+            error
+        );
+    }
+}
+function renderCompletedHackathons() {
+    const grid = document.getElementById("hackathonsDoneGrid");
+
+    grid.innerHTML = completedHackathons.map((event, index) => `
+        <article
+            class="card team-card"
+            onclick="showCompletedHackathon(${index})"
+            style="cursor:pointer;"
+        >
+            <div class="team-head">
+                <div>
+                    <div class="team-title">
+                        ${escapeCompletedHackathonText(event.title)}
+                    </div>
+
+                    <div class="team-subtitle">
+                        ${escapeCompletedHackathonText(event.organizer || "Organizer not available")}
+                        ·
+                        ${escapeCompletedHackathonText(event.date || "Date not available")}
+                    </div>
+                </div>
+
+                <span class="team-count">
+                    View →
+                </span>
+            </div>
+
+            <p class="team-description">
+                Completed hackathon · Click to view winners and details
+            </p>
+        </article>
+    `).join("");
+}
+function showCompletedHackathon(index) {
+    const event = completedHackathons[index];
+
+    const projectIdeas = Array.isArray(event.project_ideas)
+        ? event.project_ideas.filter(Boolean).join(", ")
+        : event.project_ideas;
+
+    const existing = document.getElementById("completedHackathonModal");
+
+    if (existing) {
+        existing.remove();
+    }
+
+    const modal = document.createElement("div");
+    modal.id = "completedHackathonModal";
+    modal.className = "modal-overlay";
+
+    modal.innerHTML = `
+        <div class="modal-content">
+
+            <button
+                class="modal-close"
+                onclick="document.getElementById('completedHackathonModal').remove()"
+            >
+                ×
+            </button>
+
+            <h2>${escapeCompletedHackathonText(event.title)}</h2>
+
+            <p>
+                <strong>Organizer:</strong>
+                ${escapeCompletedHackathonText(event.organizer || "Not available")}
+            </p>
+
+            <p>
+                <strong>College:</strong>
+                ${escapeCompletedHackathonText(event.college || "Not available")}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                ${escapeCompletedHackathonText(event.date || "Not available")}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                ${escapeCompletedHackathonText(event.location || "Not available")}
+            </p>
+
+            <p>
+                <strong>Problem Statement:</strong><br>
+                ${escapeCompletedHackathonText(
+                    event.problem_statement || "Not available"
+                )}
+            </p>
+
+
+
+            <div class="skills">
+    <span class="skill">
+        🥇 1st: ${escapeCompletedHackathonText(event.first_place || "Not available")}
+    </span>
+
+    <span class="skill">
+        🥈 2nd: ${escapeCompletedHackathonText(event.second_place || "Not available")}
+    </span>
+
+    <span class="skill">
+        🥉 3rd: ${escapeCompletedHackathonText(event.third_place || "Not available")}
+    </span>
+</div>
+
+<div>
+    ${[
+        ["1st", event.first_project_name, event.first_project_description],
+        ["2nd", event.second_project_name, event.second_project_description],
+        ["3rd", event.third_project_name, event.third_project_description]
+    ].map(([place, projectName, description]) => {
+        if (!projectName && !description) return "";
+
+        return `
+            <p>
+                <strong>${place} Project:</strong>
+                ${escapeCompletedHackathonText(projectName || "Title not available")}
+                ${description ? `<br>${escapeCompletedHackathonText(description)}` : ""}
+            </p>
+        `;
+    }).join("")}
+</div>
+                </div>
+
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    const modalContent = modal.querySelector(".modal-content");
+
+Object.assign(modalContent.style, {
+        position: "relative",
+        margin: "0",
+        maxHeight: "80vh",
+        overflowY: "auto"
+    });
+    }
+async function loadPeople() {
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/users/`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load users");
+        }
+
+        const allUsers = await response.json();
+
+        console.log(
+            "ALL USERS FROM BACKEND:",
+            allUsers
+        );
+
+        const savedUser =
+            localStorage.getItem("hackmateUser");
+
+        const currentUser =
+            savedUser
+                ? JSON.parse(savedUser)
+                : null;
+
+
+        people = allUsers
+            .filter(person =>
+                !currentUser ||
+                person.user_id !== currentUser.user_id
+            )
+            .map(person => ({
+
+                ...person,
+
+                /* PROFILE FIELDS */
+
+                role:
+                    person.roles &&
+                    person.roles.length > 0
+                        ? person.roles[0]
+                        : "Role not set",
+
+                location:
+                    person.location ||
+                    "Location not set",
+
+                bio:
+                    person.bio ||
+                    "No bio available",
+
+                score:
+                    person.score ??
+                    person.rating ??
+                    0,
+
+                skills:
+                    Array.isArray(person.skills)
+                        ? person.skills
+                        : [],
+
+                skillLevels:
+                    person.skillLevels || {}
+
+            }));
+
+
+        console.log(
+            "PEOPLE FOR FRONTEND:",
+            people
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error loading people:",
+            error
+        );
+
+        people = [];
+    }
+}
+
+let teams = [];
+async function loadTeams() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/teams/`);
+
+        if (!response.ok) {
+            throw new Error("Failed to load teams");
+        }
+
+        teams = await response.json();
+
+        renderTeams();
+
+    } catch (error) {
+        console.error("Error loading teams:", error);
+        showToast("Could not load teams");
+    }
+}
+
+
+
+let currentFilter = "All";
+let connections = [];
+let pendingConnections = [];
+let sentConnections = [];
+
+async function loadConnections() {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        connections = [];
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/connections/${user.user_id}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load connections");
+        }
+
+        connections = await response.json();
+
+        console.log(
+            "Backend connections:",
+            connections
+        );
+        document
+            .getElementById("connectionCount")
+            .textContent = connections.length;
+
+    } catch (error) {
+        console.error(
+            "Error loading connections:",
+            error
+        );
+
+        connections = [];
+    }
+}
+
+async function loadPendingConnections() {
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        pendingConnections = [];
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/connections/${user.user_id}/requests`
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Failed to load pending connections"
+            );
+        }
+
+        pendingConnections =
+            await response.json();
+
+        console.log(
+            "Pending connections:",
+            pendingConnections
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error loading pending connections:",
+            error
+        );
+
+        pendingConnections = [];
+    }
+}
+
+async function loadSentConnections() {
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        sentConnections = [];
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/connections/${user.user_id}/sent`
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Failed to load sent connections"
+            );
+        }
+
+        sentConnections =
+            await response.json();
+
+        console.log(
+            "Sent connections:",
+            sentConnections
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error loading sent connections:",
+            error
+        );
+    }
+}
+
+let notifications = [];
+
+async function addNotification(message, type = "info") {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/notifications/?user_id=${user.user_id}&message=${encodeURIComponent(message)}&notification_type=${encodeURIComponent(type)}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to create notification");
+        }
+
+        await loadNotifications();
+
+    } catch (error) {
+        console.error("Notification error:", error);
+    }
+}
+
+async function loadNotifications() {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        notifications = [];
+        updateNotificationDot();
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/notifications/${user.user_id}`
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Failed to load notifications");
+        }
+
+        notifications = data.map(notification => ({
+            id: notification.notification_id,
+            connection_id: notification.connection_id,
+            message: notification.message,
+            type: notification.notification_type,
+            connection_status: notification.connection_status,
+            time: new Date(notification.created_at).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            }),
+            is_read: notification.is_read
+        }));
+
+        updateNotificationDot();
+
+    } catch (error) {
+        console.error("Load notifications error:", error);
+    }
+}
+
+function updateNotificationDot() {
+    const dot = document.getElementById("notificationDot");
+    if (dot) dot.classList.toggle("hidden", notifications.length === 0);
+}
+
+
+async function openNotifications() {
+
+    await loadNotifications();
+    await loadPendingConnections();
+
+    const list =
+        document.getElementById("notificationList");
+
+    const connectionRequests =
+        pendingConnections.map(request => `
+            <div class="modal-item">
+
+                <strong>
+                    ✦ ${request.name} sent you a connection request.
+                </strong>
+
+                <div style="
+                    display:flex;
+                    gap:10px;
+                    margin-top:12px;
+                    justify-content:flex-end;
+                ">
+
+                    <button
+                        class="primary-button"
+                        onclick="acceptConnection(${request.connection_id})"
+                    >
+                        Accept
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        onclick="rejectConnection(${request.connection_id})"
+                    >
+                        Reject
+                    </button>
+
+                </div>
+
+            </div>
+        `).join("");
+
+    const normalNotifications =
+        notifications
+        .filter(
+            item =>
+                item.type !== "connection_request" ||
+                item.connection_status !== "pending"
+        )
+        .map(item => `
+            <div class="modal-item">
+
+                <strong>
+                    ${item.message}
+                </strong>
+
+                <p>
+                    ${item.time}
+                </p>
+
+            </div>
+        `).join("");
+
+    const allNotifications =
+        connectionRequests +
+        normalNotifications;
+
+    list.innerHTML =
+        allNotifications ||
+        `
+            <div class="modal-item">
+                <p>No new notifications yet.</p>
+            </div>
+        `;
+
+    document
+        .getElementById("notificationModal")
+        .classList.remove("hidden");
+}
+/* =========================================================
+   AUTH
+   ========================================================= */
+
+
+
+function showRegister() {
+
+    document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("registerPage")
+        .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   START APP
+   ========================================================= */
+
+async function startApp() {
+    document
+        .getElementById("loginPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("registerPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+    loadUser();
+
+    await loadPeople();
+
+    await loadTeams();
+
+    renderDashboardStats();
+
+    updateNotificationDot();
+
+    await loadConnections();
+
+    await loadPendingConnections();
+
+    await loadSentConnections();
+
+    renderPeople();
+
+    loadRecommendations();
+
+    showPage("home");
+}
+
+
+/* =========================================================
+   USER
+   ========================================================= */
+
+function loadUser() {
+
+    const user =
+    JSON.parse(
+        localStorage.getItem("hackmateUser")
+        ||
+        '{"name":"Bhuvan","email":"","skills":[],"skillLevels":{}}'
+    );
+
+    user.skills = user.skills || [];
+    user.skillLevels = user.skillLevels || {};
+    const name =
+        user.name || "Bhuvan";
+
+    const initial =
+        name
+            .trim()
+            .charAt(0)
+            .toUpperCase()
+        || "B";
+
+    document
+        .getElementById("profileName")
+        .textContent = name;
+
+    document
+        .getElementById("profileAvatar")
+        .textContent = initial;
+    
+    document
+        .getElementById("profileBio")
+        .textContent =
+        user.bio || "No bio added yet.";
+
+    document
+        .getElementById("profileLocation")
+        .textContent =
+        user.location || "Location not set.";
+
+    document
+        .getElementById("profileRole")
+        .textContent =
+        Array.isArray(user.roles) && user.roles.length > 0
+            ? user.roles.join(" · ")
+            : "Role not set";
+
+    document
+        .getElementById("topAvatar")
+        .textContent = initial;
+
+    document
+        .getElementById("connectionCount")
+        .textContent =
+        connections.length;
+
+    document
+        .getElementById("profileSkillCount")
+        .textContent =
+        (user.skills || []).length;
+
+    
+    const skillsList =
+        document.getElementById("profileSkills");
+
+    skillsList.innerHTML =
+        (user.skills || [])
+            .map(skill => {
+    const level = user.skillLevels?.[skill] || "beginner";
+
+    return `<span class="skill">${skill} — ${level.charAt(0).toUpperCase() + level.slice(1)}</span>`;
+})
+            .join("");
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
+
+            try {
+
+                const response = await fetch(
+                    `${API_BASE_URL}/auth/login`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.detail || "Login failed"
+                    );
+                }
+
+                localStorage.setItem(
+                    "hackmateUser",
+                    JSON.stringify(data)
+                );
+
+                startApp();
+
+            } catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    error.message ||
+                    "Could not connect to backend"
+                );
+            }
+        }
+    );
+
+/* =========================================================
+   REGISTER
+   ========================================================= */
+document
+    .getElementById("registerForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+            const form =
+                document.getElementById("registerForm");
+
+            const submitButton =
+                form.querySelector('button[type="submit"]');
+
+            const name =
+                document
+                    .getElementById("registerName")
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById("registerEmail")
+                    .value
+                    .trim();
+
+            const password =
+                document
+                    .getElementById("registerPassword")
+                    .value;
+
+            // Prevent double-click / duplicate requests
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.dataset.originalText =
+                    submitButton.textContent;
+                submitButton.textContent =
+                    "Sending...";
+            }
+
+            try {
+
+                const response = await fetch(
+                    `${API_BASE_URL}/auth/register`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            email: email,
+                            password: password
+                        })
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+                if (!response.ok) {
+
+                    if (
+                        response.status === 400 &&
+                        data.detail &&
+                        data.detail
+                            .toLowerCase()
+                            .includes("email")
+                    ) {
+                        throw new Error(
+                            "This email is already registered. Please login instead."
+                        );
+                    }
+
+                    throw new Error(
+                        data.detail ||
+                        "Registration failed"
+                    );
+                }
+
+                // Save the user waiting for OTP verification
+                localStorage.setItem(
+                    "pendingOTPUser",
+                    JSON.stringify(data)
+                );
+
+                showToast(
+                    "OTP sent successfully ✦"
+                );
+
+                // Open OTP popup immediately after response
+                document
+                    .getElementById("otpModal")
+                    .classList
+                    .remove("hidden");
+
+            } catch (error) {
+
+                console.error(
+                    "Registration error:",
+                    error
+                );
+
+                showToast(
+                    error.message ||
+                    "Could not connect to backend"
+                );
+
+            } finally {
+
+                // Allow another attempt after request finishes
+                if (submitButton) {
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        submitButton.dataset.originalText ||
+                        "Register";
+                }
+            }
+        }
+    );
+/* =========================================================
+   PERSON CARD
+   ========================================================= */
+function personCard(person) {
+    const initial = person.name.charAt(0);
+
+    const connected = connections.some(
+        connection =>
+            connection.user_id === person.user_id
+    );
+
+    const requestSent = sentConnections.some(
+        request =>
+            request.user_id === person.user_id
+    );
+
+    let buttonText = "Connect →";
+    let buttonClass = "";
+    let disabled = "";
+    let buttonAction =
+        `connectPerson(${person.user_id}, this)`;
+
+    if (connected) {
+
+        buttonText = `
+            <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M21 11.5a8.38 8.38 0 0 1-9 8.5
+                         8.5 8.5 0 0 1-4-1
+                         L3 20l1.5-4A8.5 8.5 0 1 1 21 11.5z">
+                </path>
+            </svg>
+            Message
+        `;
+
+        buttonClass = "connected";
+        buttonAction = `openChat(${person.user_id})`;
+
+    } else if (requestSent) {
+
+        buttonText = "⏳ Request Sent";
+        buttonClass = "connected";
+        disabled = "disabled";
+    }
+
+    return `
+       <article
+    class="card person-card"
+    onclick="openPersonProfile('${person.name}')"
+> 
+
+            <div class="person-top">
+
+                <div class="person-avatar">
+                    ${initial}
+                </div>
+
+                <div>
+
+                    <div class="person-name">
+                        ${person.name}
+                    </div>
+
+                    <div class="person-role">
+                        ${(person.roles && person.roles.length > 0) ? person.roles[0] : "Role not set"}
+                    </div>
+
+                    <div class="location-line">
+                        ✎ ${person.location || "Location not set"}
+                    </div>
+
+                </div>
+
+                <span class="match">
+                    ${person.rating || 0}% match
+                </span>
+
+            </div>
+
+            <div class="person-bio">
+                ${person.bio || "No bio available"}
+            </div>
+
+            <div class="tags">
+
+                ${(person.skills || [])
+                    .map(
+                        skill =>
+                            `<span class="tag">
+                                ${skill}
+                            </span>`
+                    )
+                    .join("")
+                }
+
+            </div>
+
+            <button
+                class="card-action ${buttonClass}"
+                onclick="event.stopPropagation(); ${buttonAction}"
+                ${disabled}
+            >
+                ${buttonText}
+            </button>
+
+        </article>
+    `;
+}
+   
+/* =========================================================
+   HOME PEOPLE
+   ========================================================= */
+function renderHomePeople(recommendedPeople) {
+    document
+        .getElementById("homePeople")
+        .innerHTML =
+        recommendedPeople
+            .slice(0, 3)
+            .map(personCard)
+            .join("");
+}
+
+async function loadRecommendations() {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        renderHomePeople([]);
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const teamsResponse = await fetch(`${API_BASE_URL}/teams/`);
+
+        if (!teamsResponse.ok) {
+            throw new Error("Failed to load teams");
+        }
+
+        const availableTeams = await teamsResponse.json();
+        let currentUserTeam = availableTeams.find(
+            team => team.created_by === user.user_id
+        );
+
+        if (!currentUserTeam) {
+            for (const team of availableTeams) {
+                const membersResponse = await fetch(
+                    `${API_BASE_URL}/teams/${team.team_id}/members`
+                );
+
+                if (!membersResponse.ok) {
+                    continue;
+                }
+
+                const membersData = await membersResponse.json();
+
+                if (
+                    membersData.members?.some(
+                        member => member.user_id === user.user_id
+                    )
+                ) {
+                    currentUserTeam = team;
+                    break;
+                }
+            }
+        }
+
+        if (!currentUserTeam) {
+            renderHomePeople([]);
+            return;
+        }
+
+        const response = await fetch(
+            `${API_BASE_URL}/recommendations/${currentUserTeam.team_id}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load recommendations");
+        }
+        const recommendations = await response.json();
+
+        const recommendedPeople = recommendations
+            .filter(
+                person => person.compatibility_score > 0
+            )
+            .map(person => ({
+                user_id: person.user_id,
+                name: person.name,
+                roles: person.matched_roles || [],
+                rating: person.compatibility_score,
+                score: person.compatibility_score,
+                bio:
+                    person.reason
+                    || "Recommended teammate",
+                skills: person.matched_skills || [],
+                location: "Location not set"
+            }));
+        
+        renderHomePeople(recommendedPeople);
+
+    } catch (error) {
+        console.error("Recommendation error:", error);
+        showToast(
+            error.message
+            || "Could not load recommendations"
+        );
+    }
+}
+
+/* =========================================================
+   FIND PEOPLE
+   ========================================================= */
+
+let currentChatUserId = null;
+let sendingMessage = false;
+
+async function openChat(otherUserId) {
+    currentChatUserId = otherUserId;
+
+    const person = people.find(
+        p => p.user_id === otherUserId
+    );
+
+    document.getElementById("chatModalTitle").textContent =
+        person ? `Chat with ${person.name}` : "Chat";
+
+    document
+        .getElementById("chatModal")
+        .classList.remove("hidden");
+
+    await loadChatMessages();
+
+    setTimeout(() => {
+        document
+            .getElementById("chatInput")
+            .focus();
+    }, 100);
+}
+
+async function loadChatMessages() {
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser || !currentChatUserId) {
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/messages/${user.user_id}/${currentChatUserId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load messages");
+        }
+
+        const messages =
+            await response.json();
+
+        const chatMessages =
+            document.getElementById("chatMessages");
+
+        if (!messages.length) {
+            chatMessages.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:30px 10px;
+                    color:#718099;
+                ">
+                    No messages yet.<br>
+                    Start the conversation.
+                </div>
+            `;
+            return;
+        }
+
+        chatMessages.innerHTML =
+            messages.map(message => `
+                <div style="
+                    display:flex;
+                    justify-content:${
+                        message.sender_id === user.user_id
+                            ? "flex-end"
+                            : "flex-start"
+                    };
+                    margin-bottom:10px;
+                ">
+                    <div style="
+                        max-width:75%;
+                        padding:10px 14px;
+                        border-radius:14px;
+                        background:${
+                            message.sender_id === user.user_id
+                                ? "#111827"
+                                : "#f1f5f9"
+                        };
+                        color:${
+                            message.sender_id === user.user_id
+                                ? "white"
+                                : "#111827"
+                        };
+                        word-break:break-word;
+                    ">
+                        ${message.content}
+                    </div>
+                </div>
+            `).join("");
+
+        chatMessages.scrollTop =
+            chatMessages.scrollHeight;
+
+    } catch (error) {
+        console.error(
+            "Error loading chat messages:",
+            error
+        );
+    }
+}
+
+async function sendChatMessage() {
+
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    const user =
+        JSON.parse(savedUser);
+
+    const input =
+        document.getElementById("chatInput");
+
+    const content =
+        input.value.trim();
+
+    if (!content || !currentChatUserId) {
+        return;
+    }
+
+    console.time("SEND TOTAL");
+
+    console.time("POST");
+
+    const response = await fetch(
+        `${API_BASE_URL}/messages/send?sender_id=${user.user_id}&receiver_id=${currentChatUserId}&content=${encodeURIComponent(content)}`,
+        {
+            method: "POST"
+        }
+    );
+
+    console.timeEnd("POST");
+
+    const data =
+        await response.json();
+
+    console.log("SEND RESPONSE:", data);
+
+    input.value = "";
+
+    console.time("LOAD MESSAGES");
+
+    await loadChatMessages();
+
+    console.timeEnd("LOAD MESSAGES");
+
+    console.timeEnd("SEND TOTAL");
+}
+function renderPeople() {
+
+    const input =
+        document
+            .getElementById("searchInput");
+
+    const query =
+        input
+        ? input.value
+            .toLowerCase()
+            .trim()
+        : "";
+
+
+    const filtered =
+        people.filter(person => {
+
+            const searchable =
+                [
+                    person.name,
+                    person.role,
+                    person.bio,
+                    ...person.skills
+                ]
+                .join(" ")
+                .toLowerCase();
+
+
+            const selectedRole = document.getElementById("roleFilter")?.value || "All";
+            const selectedLocation = document.getElementById("locationFilter")?.value || "All";
+            const selectedSkill = document.getElementById("skillFilter")?.value || "All";
+
+            const roleMatch =
+                (currentFilter === "All" || person.role === currentFilter)
+                && (selectedRole === "All" || person.role === selectedRole);
+
+            const locationMatch =
+                selectedLocation === "All" || person.location === selectedLocation;
+
+            const skillMatch =
+                selectedSkill === "All" || person.skills.includes(selectedSkill);
+
+            return (
+                roleMatch
+                && locationMatch
+                && skillMatch
+                && searchable.includes(query)
+            );
+
+        });
+
+
+    document
+        .getElementById("peopleGrid")
+        .innerHTML =
+
+        filtered.length
+
+        ?
+
+        filtered
+            .map(personCard)
+            .join("")
+
+        :
+
+        `
+
+        <div
+            class="card"
+            style="
+                padding:30px;
+                color:#718099;
+                grid-column:1/-1;
+            "
+        >
+
+            No teammates found.
+            Try another skill or role.
+
+        </div>
+
+        `;
+
+}
+
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+function setFilter(button, filter) {
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(
+            element =>
+                element.classList.remove(
+                    "active"
+                )
+        );
+
+
+    button.classList.add("active");
+
+    currentFilter = filter;
+
+    renderPeople();
+
+}
+
+
+/* =========================================================
+   CONNECT
+   ========================================================= */
+
+async function connectPerson(personId, button) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    if (!personId) {
+        showToast("User information not available");
+        return;
+        }
+
+        if (personId === user.user_id) {
+            showToast("You cannot connect with yourself");
+            return;
+        }
+    try {
+                const response = await fetch(
+            `${API_BASE_URL}/connections/request?sender_id=${user.user_id}&receiver_id=${personId}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Could not send connection request"
+            );
+        }
+
+        await loadSentConnections();
+
+        renderPeople();
+
+        showToast(
+            "Connection request sent successfully ✦"
+        );
+
+    } catch (error) {
+        console.error(
+            "Connection request error:",
+            error
+        );
+
+        showToast(
+            error.message || "Could not connect to backend"
+        );
+    }
+}
+
+/* =========================================================
+   TEAMS
+   ========================================================= */
+
+async function renderTeams() {
+    const teamsGrid = document.getElementById("teamsGrid");
+
+    if (!teamsGrid) {
+        console.error("teamsGrid element not found");
+        return;
+    }
+
+    try {
+        // Get all teams from the backend
+        const response = await fetch(`${API_BASE_URL}/teams/`);
+
+        if (!response.ok) {
+            throw new Error("Failed to load teams");
+        }
+
+        const backendTeams = await response.json();
+
+        // Get the logged-in user
+        const savedUser = localStorage.getItem("hackmateUser");
+        const currentUser = savedUser
+            ? JSON.parse(savedUser)
+            : null;
+
+        const currentUserId = currentUser
+            ? Number(currentUser.user_id)
+            : null;
+
+        // Load members and recommendations for every team
+        for (const team of backendTeams) {
+
+            // Get team members
+            const membersResponse = await fetch(
+                `${API_BASE_URL}/teams/${team.team_id}/members`
+            );
+
+            if (membersResponse.ok) {
+                const membersData = await membersResponse.json();
+                team.members = membersData.members || [];
+            } else {
+                team.members = [];
+            }
+
+            // Get AI recommendations
+            const recommendationsResponse = await fetch(
+                `${API_BASE_URL}/recommendations/${team.team_id}`
+            );
+
+            if (recommendationsResponse.ok) {
+                team.recommendations =
+                    await recommendationsResponse.json();
+            } else {
+                team.recommendations = [];
+            }
+        }
+
+        // Convert backend data to frontend format
+        teams = backendTeams
+            .filter(team => {
+                if (!team.hackathon_date) {
+                    return true;
+                }
+
+                return new Date(team.hackathon_date) >= new Date();
+            })
+            .map(team => ({
+                team_id: team.team_id,
+                title: team.team_name,
+                subtitle: team.location || "Team",
+                description: team.description || "",
+                hackathon_date: team.hackathon_date || null,
+
+                count: `${team.members.length || 0} / ${team.team_size || 0}`,
+
+                members: team.members || [],
+
+                recommendations: team.recommendations || []
+            }));
+
+        // Display teams
+        teamsGrid.innerHTML = teams.map(team => {
+
+            // Check whether the logged-in user belongs to this team
+            const isMember =
+                currentUserId !== null &&
+                team.members.some(
+                    member =>
+                        Number(member.user_id) === currentUserId
+                );
+            const isRequestPending = 
+                currentUserId !== null &&
+                team.join_status == "pending";         // Escape the team title for use in HTML
+            const safeTitle = escapeCompletedHackathonText(
+                team.title
+            );
+
+            return `
+                <article
+                    class="card team-card"
+                    onclick="openTeamDetails(
+                        '${team.title.replace(/'/g, "\\'")}'
+                    )"
+                >
+
+                    <div class="team-head">
+                        <div>
+                            <div class="team-title">
+                                ${safeTitle}
+                            </div>
+
+                            <div class="team-subtitle">
+                                ${escapeCompletedHackathonText(team.subtitle)}
+                            </div>
+                        </div>
+
+                        <span class="team-count">
+                            ${team.count}
+                        </span>
+                    </div>
+
+                    <div class="team-description">
+                        ${escapeCompletedHackathonText(team.description)}
+                    </div>
+
+                    <div class="team-members">
+                        ${
+                            team.members.length > 0
+                                ? team.members
+                                    .map(member => `
+                                        <div class="mini-avatar">
+                                            ${
+                                                escapeCompletedHackathonText(
+                                                    (member.name || "?")
+                                                        .slice(0, 2)
+                                                        .toUpperCase()
+                                                )
+                                            }
+                                        </div>
+                                    `)
+                                    .join("")
+                                : ""
+                        }
+                    </div>
+
+                ${
+    isMember
+        ? `
+            <button
+                class="join-button team-chat-button"
+                onclick="
+                    event.stopPropagation();
+                    openTeamChat(
+                        ${team.team_id},
+                        '${team.title.replace(/'/g, "\\'")}'
+                    );
+                "
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="vertical-align: middle; margin-right: 6px;"
+                    aria-hidden="true"
+                >
+                    <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/>
+                </svg>
+                Team Chat
+            </button>
+        `
+        : isRequestPending
+            ? `
+                <button class="join-button" disabled>
+                    Request Sent
+                </button>
+            `
+            : `
+                <button
+                    class="join-button"
+                    onclick="
+                        event.stopPropagation();
+                        joinTeam(${team.team_id});
+                    "
+                >
+                    Request to join
+                </button>
+            `
+}  
+                </article>
+            `;
+        }).join("");
+
+    } catch (error) {
+        console.error("Error loading teams:", error);
+
+        teamsGrid.innerHTML = `
+            <div class="card">
+                <div class="team-description">
+                    Could not load teams from the backend.
+                </div>
+            </div>
+        `;
+    }
+}
+async function joinTeam(teamId) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/teams/${teamId}/join?user_id=${user.user_id}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            if (response.status === 400 &&
+                data.detail === "Join request already pending") {
+                showToast("Join request already pending");
+                return;
+            }
+
+            throw new Error(
+                data.detail || "Join failed"
+            );
+        }
+
+    
+
+        showToast("Team request sent ✦");
+        teams = teans.map(team => Number(team.team_id) === Number(teamId)?
+            {...team, join_status: "pending"} : team);  
+            renderTeams();
+    } catch (error) {
+        console.error("Join team error:", error);
+
+        showToast(
+            error.message || "Could not connect to backend"
+        );
+    }
+}
+
+async function loadJoinRequests(teamId) {
+    const savedUser = localStorage.getItem("hackmateUser");
+    if (!savedUser) return;
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const teamResponse = await fetch(
+            `${API_BASE_URL}/teams/${teamId}`
+        );
+
+        if (!teamResponse.ok) return;
+
+        const team = await teamResponse.json();
+
+        // Only the team creator/leader can view join requests
+        if (team.created_by !== user.user_id) {
+            return;
+        }
+
+        const response = await fetch(
+            `${API_BASE_URL}/teams/${teamId}/join-requests?user_id=${user.user_id}`
+        );
+
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        const container =
+            document.getElementById(`joinRequests-${teamId}`);
+
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        data.requests.forEach(request => {
+            container.innerHTML += `
+                <div class="modal-item">
+                    <strong>${request.name}</strong>
+                    <p>${request.email}</p>
+
+                    <button
+                        class="primary-button"
+                        onclick="respondToJoinRequest(${request.request_id}, 'accept')">
+                        Accept
+                    </button>
+
+                    <button
+                        class="primary-button"
+                        onclick="respondToJoinRequest(${request.request_id}, 'reject')">
+                        Reject
+                    </button>
+                </div>
+            `;
+        });
+
+    } catch (error) {
+        console.error("Load join requests error:", error);
+    }
+}
+/* =========================================================
+   CREATE TEAM
+   ========================================================= */
+function openCreateTeamModal() {
+    document
+        .getElementById("createTeamModal")
+        .classList.remove("hidden");
+}
+
+
+function createTeam() {
+
+    const title =
+        prompt(
+            "Enter your team or project name:"
+        );
+
+
+    if (!title) {
+        return;
+    }
+
+
+    teams.unshift({
+
+        title: title,
+
+        subtitle: "New Project",
+
+        members: ["B"],
+
+        count: "1 / 4",
+
+        description:
+            "A new HackMate team ready to find collaborators."
+
+    });
+
+
+    renderTeams();
+    renderDashboardStats();
+    addNotification("Your team '" + title + "' was created");
+
+    showPage("teams");
+
+    showToast(
+        "Your team was created ✦"
+    );
+
+}
+
+async function submitCreateTeam() {
+
+    const user = JSON.parse(
+        localStorage.getItem("hackmateUser")
+    );
+
+    if (!user) {
+        showToast("Please login first");
+        return;
+    }
+
+    const teamName =
+        document.getElementById("createTeamName").value.trim();
+
+    const teamSize =
+        document.getElementById("createTeamSize").value;
+
+    const location =
+        document.getElementById("createTeamLocation").value.trim();
+
+    const hackathonDate =
+        document.getElementById("createTeamHackathonDate").value;
+
+    const description =
+        document.getElementById("createTeamDescription").value.trim();
+
+    const skills =
+        document.getElementById("createTeamSkills").value
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean);
+
+    const roles =
+        document.getElementById("createTeamRoles").value
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean);
+
+    const interests =
+        document.getElementById("createTeamInterests").value
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean);
+
+    if (!teamName || !teamSize || !location || !hackathonDate) {
+        showToast("Please fill all required fields");
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE_URL}/teams/`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    team_name: teamName,
+                    description: description,
+                    team_size: Number(teamSize),
+                    location: location,
+                    required_skills: skills,
+                    required_roles: roles,
+                    interests: interests,
+                    created_by: user.user_id,
+                    hackathon_date:
+                        `${hackathonDate}T00:00:00`
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Create team error:", data);
+            showToast(
+                data.detail || "Failed to create team"
+            );
+            return;
+        }
+
+        closeModal("createTeamModal");
+
+        document.getElementById("createTeamName").value = "";
+        document.getElementById("createTeamSize").value = "";
+        document.getElementById("createTeamLocation").value = "";
+        document.getElementById("createTeamHackathonDate").value = "";
+        document.getElementById("createTeamDescription").value = "";
+        document.getElementById("createTeamSkills").value = "";
+        document.getElementById("createTeamRoles").value = "";
+        document.getElementById("createTeamInterests").value = "";
+
+        await renderTeams();
+
+        showToast("Team created successfully ✦");
+
+    } catch (error) {
+
+        console.error(
+            "Create team request failed:",
+            error
+        );
+
+        showToast("Could not connect to backend");
+    }
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+function editProfile() {
+
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user =
+        JSON.parse(savedUser);
+
+    document.getElementById("editProfileName").value =
+        user.name || "";
+
+    const skillsList = document.getElementById("editSkillsList");
+
+    skillsList.innerHTML = "";
+    
+    (user.skills || []).forEach(skill => {
+        const level = user.skillLevels?.[skill] || "beginner";
+    
+        const skillRow = document.createElement("div");
+        skillRow.className = "edit-skill-row";
+    
+        skillRow.innerHTML = `
+    <strong>${skill}</strong>
+
+    <select
+        onchange="updateEditSkillLevel('${skill}', this.value)"
+    >
+        <option value="beginner" ${level === "beginner" ? "selected" : ""}>
+            Beginner
+        </option>
+
+        <option value="intermediate" ${level === "intermediate" ? "selected" : ""}>
+            Intermediate
+        </option>
+
+        <option value="pro" ${level === "pro" ? "selected" : ""}>
+            Pro
+        </option>
+    </select>
+`;
+        
+        skillsList.appendChild(skillRow);
+    });
+
+    document.getElementById("editProfileBio").value =
+        user.bio || "";
+
+    document.getElementById("editProfileLocation").value =
+        user.location || "";
+
+    document.getElementById("editProfileRoles").value =
+        Array.isArray(user.roles)
+            ? user.roles.join(", ")
+            : "";
+
+    document.getElementById("editProfileInterests").value =
+        Array.isArray(user.interests)
+            ? user.interests.join(", ")
+            : "";
+
+    document
+        .getElementById("editProfileModal")
+        .classList.remove("hidden");
+}
+
+async function updateEditSkillLevel(skillName, level) {
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user =
+        JSON.parse(savedUser);
+
+    user.skills = user.skills || [];
+    user.skillLevels = user.skillLevels || {};
+
+    user.skillLevels[skillName] = level;
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/users/${user.user_id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    skills: user.skills,
+                    skill_levels: user.skillLevels
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail ||
+                "Failed to update skill level"
+            );
+        }
+
+        user.skills = data.skills || [];
+        user.skillLevels =
+            data.skill_levels || {};
+
+        localStorage.setItem(
+            "hackmateUser",
+            JSON.stringify(user)
+        );
+
+        loadUser();
+
+        showToast("Skill level updated ✦");
+
+    } catch (error) {
+        console.error(
+            "Skill level update error:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "Could not update skill level"
+        );
+    }
+}
+
+async function saveEditedProfile() {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+    user.skills = user.skills || [];
+    user.skillLevels = user.skillLevels || {};
+
+    const newName =
+        document.getElementById("editProfileName").value.trim();
+
+    const bio =
+        document.getElementById("editProfileBio").value.trim();
+
+    const location =
+        document.getElementById("editProfileLocation").value.trim();
+
+    const rolesText =
+        document.getElementById("editProfileRoles").value.trim();
+
+    const interestsText =
+        document.getElementById("editProfileInterests").value.trim();
+
+    if (!newName) {
+        showToast("Enter your name");
+        return;
+    }
+
+    const roles = rolesText
+        ? rolesText
+            .split(",")
+            .map(role => role.trim())
+            .filter(Boolean)
+        : [];
+
+    const interests = interestsText
+        ? interestsText
+            .split(",")
+            .map(interest => interest.trim())
+            .filter(Boolean)
+        : [];
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/users/${user.user_id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: newName,
+                    roles: roles,
+                    interests: interests,
+                    bio: bio,
+                    location: location,
+                    skills: user.skills,
+                    skill_levels: user.skillLevels,
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Profile update failed"
+            );
+        }
+
+        user.name = data.name;
+        user.skills = data.skills;
+        user.skillLevels = data.skill_levels || {};
+        user.roles = data.roles;
+        user.interests = data.interests;
+        user.bio = data.bio;
+        user.location = data.location;
+
+        localStorage.setItem(
+            "hackmateUser",
+            JSON.stringify(user)
+        );
+
+        loadUser();
+
+        closeModal("editProfileModal");
+
+        showToast("Profile updated ✦");
+
+    } catch (error) {
+        console.error(
+            "Profile update error:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "Could not update profile"
+        );
+    }
+}
+
+async function addEditSkill() {
+    const skillName =
+        document.getElementById("newSkillName").value.trim();
+
+    if (!skillName) {
+        showToast("Enter a skill first");
+        return;
+    }
+
+    const level =
+        document.getElementById("newSkillLevel").value;
+
+    const savedUser =
+        localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user =
+        JSON.parse(savedUser);
+
+    user.skills = user.skills || [];
+    user.skillLevels = user.skillLevels || {};
+
+    if (!user.skills.includes(skillName)) {
+        user.skills.push(skillName);
+    }
+
+    user.skillLevels[skillName] = level;
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/users/${user.user_id}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    skills: user.skills,
+                    skill_levels: user.skillLevels
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail ||
+                "Failed to save skill"
+            );
+        }
+
+        user.skills =
+            data.skills || [];
+
+        user.skillLevels =
+            data.skill_levels || {};
+
+        localStorage.setItem(
+            "hackmateUser",
+            JSON.stringify(user)
+        );
+
+        const skillRow =
+            document.createElement("div");
+
+        skillRow.className =
+            "edit-skill-row";
+
+        skillRow.innerHTML = `
+            <strong>${skillName}</strong>
+            <span>
+                ${
+                    level.charAt(0).toUpperCase() +
+                    level.slice(1)
+                }
+            </span>
+        `;
+
+        document
+            .getElementById("editSkillsList")
+            .appendChild(skillRow);
+
+        document
+            .getElementById("newSkillName")
+            .value = "";
+
+        showToast("Skill saved ✦");
+
+    } catch (error) {
+        console.error(
+            "Skill update error:",
+            error
+        );
+
+        showToast(
+            error.message ||
+            "Could not save skill"
+        );
+    }
+}
+/* =========================================================
+   DASHBOARD STATISTICS
+   ========================================================= */
+
+function renderDashboardStats() {
+    const count = role => people.filter(person =>
+        (person.role || "").toLowerCase().includes(role.toLowerCase())
+    ).length;
+    document.getElementById("statDevelopers").textContent = count("Developer");
+    document.getElementById("statData").textContent = count("Data");
+    document.getElementById("statDesigners").textContent = count("Designer");
+    document.getElementById("statTeams").textContent = teams.length;
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+   ========================================================= */
+
+async function acceptConnection(connectionId) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/connections/${connectionId}/accept?user_id=${user.user_id}`,
+            {
+                method: "PUT"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Could not accept connection"
+            );
+        }
+
+        // Refresh connection state immediately
+        await loadConnections();
+        await loadPendingConnections();
+        await loadSentConnections();
+
+        // Refresh People UI
+        renderPeople();
+
+        document
+            .getElementById("notificationModal")
+            .classList.add("hidden");
+
+        await loadNotifications();
+        showToast("Connection accepted ✦");
+
+    } catch (error) {
+        console.error(
+            "Accept connection error:",
+            error
+        );
+
+        showToast(
+            error.message || "Could not accept connection"
+        );
+    }
+}
+
+async function rejectConnection(connectionId) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/connections/${connectionId}/reject?user_id=${user.user_id}`,
+            {
+                method: "PUT"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Could not reject connection"
+            );
+        }
+
+        document
+            .getElementById("notificationModal")
+            .classList.add("hidden");
+
+        await loadConnections();
+        await loadPendingConnections();
+        await loadSentConnections();
+        renderPeople();
+        await loadNotifications();
+
+        showToast("Connection request rejected");
+
+    } catch (error) {
+        console.error(
+            "Reject connection error:",
+            error
+        );
+
+        showToast(
+            error.message || "Could not reject connection"
+        );
+    }
+}
+
+function clearNotifications() {
+    notifications = [];
+    localStorage.setItem("hackmateNotifications", "[]");
+    updateNotificationDot();
+    showToast("Notifications cleared ✦");
+}
+
+
+/* =========================================================
+   SETTINGS / MODALS
+   ========================================================= */
+
+function openSettings() {
+    document.getElementById("settingsModal").classList.remove("hidden");
+}
+
+function closeModal(id) {
+    document.getElementById(id)?.classList.add("hidden");
+}
+
+function closeModalOnBackdrop(event, id) {
+    if (event.target.id === id) closeModal(id);
+}
+/* =========================================================
+   CLICKABLE TEAMMATE PROFILES
+   ========================================================= */
+
+function openReviewForm(personId) {
+    const person = people.find(
+        item => item.user_id === personId
+    );
+
+    const connected = connections.some(
+        connection => connection.user_id === personId
+    );
+
+    if (!person) {
+        showToast("Teammate not found");
+        return;
+    }
+
+    if (!connected) {
+        showToast("Connect with this teammate before leaving a review");
+        return;
+    }
+
+    document.getElementById("profileModalTitle").textContent =
+        "Review " + person.name;
+
+    document.getElementById("profileModalContent").innerHTML =
+        '<div class="modal-item">' +
+            '<strong>Your rating</strong>' +
+            '<select id="reviewRating">' +
+                '<option value="5">★★★★★ — Excellent</option>' +
+                '<option value="4">★★★★ — Very good</option>' +
+                '<option value="3">★★★ — Good</option>' +
+                '<option value="2">★★ — Needs improvement</option>' +
+                '<option value="1">★ — Poor</option>' +
+            '</select>' +
+        '</div>' +
+        '<div class="modal-item">' +
+            '<strong>Review</strong>' +
+            '<textarea id="reviewComment" maxlength="500" ' +
+                'placeholder="Share a short, constructive review."></textarea>' +
+        '</div>' +
+        '<div class="request-actions">' +
+            '<button onclick="submitReview(' + personId + ')">' +
+                'Submit review' +
+            '</button>' +
+            '<button onclick="closeModal(\'profileModal\')">Close</button>' +
+        '</div>';
+}
+
+async function submitReview(personId) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const rating = Number(
+        document.getElementById("reviewRating").value
+    );
+    const comment =
+        document.getElementById("reviewComment").value.trim();
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            API_BASE_URL + "/ratings/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    rated_user_id: personId,
+                    rated_by_user_id: user.user_id,
+                    rating: rating,
+                    comment: comment
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.detail || "Could not submit review");
+        }
+
+        closeModal("profileModal");
+        await loadPeople();
+        renderPeople();
+        showToast("Review submitted ✦");
+
+    } catch (error) {
+        console.error("Review submission error:", error);
+        showToast(error.message || "Could not submit review");
+    }
+}
+
+function openPersonProfile(name) {
+
+    const person = people.find(
+        item => item.name === name
+    );
+
+    if (!person) {
+        console.log("Person not found:", name);
+        return;
+    }
+
+
+    /* =====================================================
+       SAFE PROFILE DATA
+    ===================================================== */
+
+    const personName =
+        person.name || "Unknown User";
+
+    const role =
+        person.role || "Role not set";
+
+    const location =
+        person.location || "Location not set";
+
+    const bio =
+        person.bio || "No bio available.";
+
+    const skills =
+        Array.isArray(person.skills)
+            ? person.skills
+            : [];
+
+    const score =
+        person.score ??
+        person.compatibility_score ??
+        0;
+
+    const skillLevels =
+        person.skillLevels || {};
+
+
+    /* =====================================================
+       PROFILE TITLE
+    ===================================================== */
+
+    document.getElementById("profileModalTitle").textContent =
+        personName;
+
+
+    /* =====================================================
+       CALCULATE SKILL LEVEL COUNTS
+    ===================================================== */
+
+    let beginner = 0;
+    let intermediate = 0;
+    let pro = 0;
+
+
+    skills.forEach(skill => {
+
+        const level =
+            (skillLevels[skill] || "beginner").toLowerCase();
+
+
+        if (level === "beginner") {
+            beginner++;
+        }
+
+        else if (level === "intermediate") {
+            intermediate++;
+        }
+
+        else if (level === "pro") {
+            pro++;
+        }
+
+        else {
+            beginner++;
+        }
+
+    });
+
+
+    const totalSkills =
+        beginner +
+        intermediate +
+        pro;
+
+
+    /* =====================================================
+       CALCULATE DONUT ANGLES
+    ===================================================== */
+
+
+    /* =====================================================
+       PROFILE CONTENT
+    ===================================================== */
+
+    document.getElementById("profileModalContent").innerHTML = `
+
+        <!-- TOP -->
+
+        <div class="profile-popup-top">
+
+            <div class="person-top">
+
+                <div class="person-avatar">
+                    ${personName.charAt(0).toUpperCase()}
+                </div>
+
+                <div>
+
+                    <strong>
+                        ${role}
+                    </strong>
+
+                    <div class="location-line">
+                        ✎ ${location}
+                    </div>
+
+                </div>
+
+                <span class="match">
+                    ${score}% match
+                </span>
+
+            </div>
+
+
+            <!-- SKILL DONUT -->
+
+            <div class="skill-overview">
+
+                <div
+                    class="skill-donut"
+                    style="
+                        background:
+                        conic-gradient(
+                            #ef4444 0deg,
+                            #f59e0b,
+                            #10b981 360deg
+                        );
+                    "
+                >
+
+                    <div class="skill-donut-inner">
+
+                        <strong>
+                            ${totalSkills}
+                        </strong>
+
+                        <span>
+                            Skills
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="skill-legend">
+
+                    <div class="skill-legend-row">
+
+                        <span class="legend-dot beginner"></span>
+
+                        <span>Beginner</span>
+
+                        <strong>
+                            ${beginner}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="skill-legend-row">
+
+                        <span class="legend-dot intermediate"></span>
+
+                        <span>Intermediate</span>
+
+                        <strong>
+                            ${intermediate}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="skill-legend-row">
+
+                        <span class="legend-dot pro"></span>
+
+                        <span>Pro</span>
+
+                        <strong>
+                            ${pro}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT -->
+
+        <div class="modal-item">
+
+            <strong>
+                About
+            </strong>
+
+            <p>
+                ${bio}
+            </p>
+
+        </div>
+
+
+        <!-- SKILLS -->
+
+        <div class="modal-item">
+
+            <strong>
+                Skills
+            </strong>
+
+            <div class="tags">
+
+                ${
+                    skills.length > 0
+
+                    ? skills.map(skill => {
+
+                        const level =
+                            (
+                                skillLevels[skill] ||
+                                "beginner"
+                            ).toLowerCase();
+
+                        return `
+
+                            <span class="skill-level-tag">
+
+                                <span
+                                    class="legend-dot ${level}"
+                                ></span>
+
+                                ${skill}
+
+                                <small class="${level}">
+                                    ${
+                                        level
+                                            .charAt(0)
+                                            .toUpperCase()
+                                        +
+                                        level.slice(1)
+                                    }
+                                </small>
+
+                            </span>
+
+                        `;
+
+                    }).join("")
+
+                    : `
+                        <span>
+                            No skills added
+                        </span>
+                    `
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="request-actions">
+
+            <button
+                onclick="
+                    connectPerson(${person.user_id}, this);
+                    closeModal('profileModal')
+                "
+            >
+                ✎ Connect
+            </button>
+
+            <button
+                onclick="openReviewForm(${person.user_id})"
+            >
+                ★ Review
+            </button>
+
+            <button
+                onclick="closeModal('profileModal')"
+            >
+                Close
+            </button>
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       SHOW PROFILE MODAL
+    ===================================================== */
+
+    document
+        .getElementById("profileModal")
+        .classList.remove("hidden");
+}
+
+
+/* =========================================================
+   TEAM DETAILS
+   ========================================================= */
+
+function openTeamDetails(title) {
+    const team = teams.find(item => item.title === title);
+
+    if (!team) return;
+
+    document.getElementById("teamModalTitle").textContent = team.title;
+
+    document.getElementById("teamModalContent").innerHTML = `
+        <div class="modal-item">
+            <strong>${team.subtitle}</strong>
+            <p>${team.description}</p>
+        </div>
+
+        <div class="modal-item">
+            <strong>Team size</strong>
+            <p>${team.count}</p>
+        </div>
+
+        <div class="modal-item">
+            <strong>Members</strong>
+
+            <div class="team-members">
+                ${
+                    team.members && team.members.length > 0
+                        ? team.members
+                            .map(member => `
+                                <div class="mini-avatar">
+                                    ${member.name
+                                        .charAt(0)
+                                        .toUpperCase()}
+                                </div>
+                            `)
+                            .join("")
+                        : "<p>No members yet.</p>"
+                }
+            </div>
+        </div>
+
+        <div class="modal-item">
+            <strong>Recommended Teammates</strong>
+
+            ${
+                team.recommendations &&
+                team.recommendations.filter(
+                    person => person.compatibility_score > 0
+                ).length > 0
+
+                ? team.recommendations
+                    .filter(
+                        person => person.compatibility_score > 0
+                    )
+                    .map(person => `
+                        <div class="recommendation-card">
+                            <div>
+                                <strong>${person.name}</strong>
+
+                                <p>
+                                    ${
+                                        person.reason ||
+                                        "Good compatibility with this team."
+                                    }
+                                </p>
+                            </div>
+
+                            <div class="recommendation-score">
+                                ${person.compatibility_score}%
+                            </div>
+                        </div>
+                    `)
+                    .join("")
+
+                : `<p>No recommendations available yet.</p>`
+            }
+        </div>
+
+       <div id="joinRequests-${team.team_id}">
+    <p>Loading join requests...</p>
+</div>
+
+<button
+    class="primary-button"
+    onclick="
+        event.stopPropagation();
+        joinTeam(${team.team_id});
+        closeModal('teamModal');
+    "
+>
+    Request to join
+</button> 
+    `;
+
+    document
+        .getElementById("teamModal")
+        .classList.remove("hidden");
+
+    loadJoinRequests(team.team_id);
+} 
+
+async function respondToJoinRequest(requestId, action) {
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        showToast("Please login first");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/teams/join-requests/${requestId}?leader_id=${user.user_id}&action=${action}`,
+            {
+                method: "PUT"
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "Could not process request"
+            );
+        }
+
+        showToast(data.message);
+
+        // Refresh the current team details
+        await loadTeams();
+
+    } catch (error) {
+        console.error(
+            "Join request response error:",
+            error
+        );
+
+        showToast(
+            error.message || "Could not connect to backend"
+        );
+    }
+}
+async function openTeamChat(teamId, teamName) {
+    console.log("Team Chat clicked:", teamId, teamName);
+    const savedUser = localStorage.getItem("hackmateUser");
+
+    if (!savedUser) {
+        alert("Please log in to use team chat.");
+        return;
+    }
+
+    const currentUser = JSON.parse(savedUser);
+    const userId = currentUser.user_id;
+
+    const existing = document.getElementById("teamChatModal");
+    if (existing) existing.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "teamChatModal";
+    modal.className = "modal-overlay";
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button
+    type="button"
+    class="modal-close"
+    onclick="document.getElementById('teamChatModal').remove()"
+    style="position:absolute; top:12px; right:12px; width:36px; height:36px; padding:0; border:0; border-radius:50%; background:#f1f5f9; color:#111827; font-size:24px; cursor:pointer;">
+    &times;
+</button>
+
+            <h2>${escapeCompletedHackathonText(teamName)} — Team Chat</h2>
+
+            <div id="teamChatMessages"
+    style="
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        margin: 0;
+        overflow-wrap: anywhere;
+    ">
+    Loading messages...
+</div>
+
+            <form id="teamChatForm" style="display:flex; gap:10px; align-items:center; width:100%;">
+                <input id="teamChatInput"
+                    type="text"
+                    placeholder="Write a message..."
+                    required
+                    style="flex:1; min-width:0; height:60px; padding:16px; font-size:18px; box-sizing:border-box; border:1px solid #d1d5db; border-radius:10px;">
+                <button
+    class="join-button"
+    type="submit"
+    style="
+        width: 120px;
+        height: 60px;
+        flex-shrink: 0;
+        padding: 12px 20px;
+        white-space: nowrap;
+        background: #000000;
+        color: #ffffff;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+    "
+>
+    Send
+</button>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+
+Object.assign(modal.style, {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    right: "0",
+    bottom: "0",
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: "99999",
+    boxSizing: "border-box"
+});
+
+const chatContent = modal.querySelector(".modal-content");
+
+Object.assign(chatContent.style, {
+    position: "relative",
+    margin: "0",
+    width: "min(900px, 95vw)",
+    height: "min(600px, 85vh)",
+    overflow: "hidden",
+    boxSizing: "border-box",
+    background: "#ffffff",
+    padding: "28px",
+    borderRadius: "20px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px"
+});
+    const messagesContainer = document.getElementById("teamChatMessages");
+
+    async function loadMessages() {
+        const response = await fetch(
+            `${API_BASE_URL}/messages/team/${teamId}/${userId}`
+        );
+
+        if (!response.ok) {
+            messagesContainer.textContent =
+                "You must be a member of this team to view its chat.";
+            return;
+        }
+
+        const messages = await response.json();
+
+        messagesContainer.innerHTML = messages.length
+            ? messages.map(message => `
+                <p style="margin:8px 0;">
+                    <strong>
+                        ${message.sender_id === userId ? "You" : (message.sender_name || "User " + message.sender_id)}:
+                    </strong>
+                    ${escapeCompletedHackathonText(message.content)}
+                </p>
+            `).join("")
+            : "No messages yet. Start the conversation!";
+        
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    await loadMessages();
+
+    document.getElementById("teamChatForm").addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const input = document.getElementById("teamChatInput");
+        const content = input.value.trim();
+
+        if (!content) return;
+
+        const params = new URLSearchParams({
+            sender_id: userId,
+            content: content
+        });
+
+        const response = await fetch(
+            `${API_BASE_URL}/messages/team/${teamId}/send?${params}`,
+            { method: "POST" }
+        );
+
+        if (!response.ok) {
+            alert("Could not send message. Make sure you are a team member.");
+            return;
+        }
+
+        input.value = "";
+        await loadMessages();
+    });
+}
+
+/* =========================================================
+   SUPPORT ACTION
+   ========================================================= */
+
+function supportHackMate() {
+
+    showToast(
+        "Thanks for supporting HackMate ✦"
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+
+function logout() {
+    localStorage.removeItem("hackmateUser");
+    localStorage.removeItem("pendingOTPUser");
+
+    document
+        .getElementById("app")
+        .classList.add("hidden");
+
+    showLogin();
+
+    showToast(
+        "You have been logged out"
+    );
+}
+
+function showLogin() {
+    document
+        .getElementById("loginPage")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("registerPage")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginEmail")
+        .value = "";
+
+    document
+        .getElementById("loginPassword")
+        .value = "";
+} 
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
+async function showPage(page) {
+
+    const pages = [
+        "home",
+        "find",
+        "teams",
+        "profile",
+        "hackathonsDone"
+    ];
+
+
+    pages.forEach(
+        current => {
+
+            document
+                .getElementById(
+                    current + "Page"
+                )
+                .classList.toggle(
+                    "hidden",
+                    current !== page
+                );
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.page === page
+            );
+
+        });
+
+
+    if (page === "find") {
+        await loadConnections();
+        await loadPendingConnections();
+        await loadSentConnections();
+        renderPeople();
+    }
+
+    if (page === "home") {
+        renderDashboardStats();
+        loadRecommendations();
+    }
+
+    if (page === "teams") {
+        renderTeams();
+        renderDashboardStats();
+    }
+
+    if (page === "hackathonsDone") {
+        await loadCompletedHackathons();
+    }
+
+    if (page === "profile") {
+        loadUser();
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2600
+        );
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+async function verifyOTP() {
+    const savedUser = localStorage.getItem("pendingOTPUser");
+
+    if (!savedUser) {
+        showToast("Registration session not found");
+        return;
+    }
+
+    const user = JSON.parse(savedUser);
+    const otp = document.getElementById("otpInput").value.trim();
+
+    if (otp.length !== 6) {
+        showToast("Enter the 6-digit OTP");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            `${API_BASE_URL}/auth/verify-otp`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: user.user_id,
+                    verification_code: otp
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.detail || "OTP verification failed"
+            );
+        }
+
+        localStorage.setItem(
+            "hackmateUser",
+            JSON.stringify(user)
+        );
+
+        localStorage.removeItem("pendingOTPUser");
+
+        closeModal("otpModal");
+
+        showToast("Email verified successfully ✦");
+
+        startApp();
+
+    } catch (error) {
+        console.error("OTP verification error:", error);
+
+        showToast(
+            error.message || "Could not connect to backend"
+        );
+    }
+}
+   
+window.addEventListener(
+    "load",
+    function() {
+
+        setTimeout(
+            function() {
+
+                document
+                    .getElementById("splash")
+                    .classList.add("hide");
+
+            },
+            1900
+        );
+
+
+        updateNotificationDot();
+
+        if (
+            localStorage.getItem(
+                "hackmateUser"
+            )
+        ) {
+
+            startApp();
+
+        }
+
+    }
+);
+
+</script>
+<div class="modal-backdrop hidden" id="editProfileModal">
+    <div class="modal-card">
+
+        <div class="modal-head">
+            <h3>Edit Profile</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('editProfileModal')"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="modal-item">
+            <strong>Name</strong>
+
+            <input
+                type="text"
+                id="editProfileName"
+                placeholder="Enter your name"
+            >
+        </div>
+
+        <div class="modal-item">
+            <strong>Skills</strong>
+
+            <div id="editSkillsList"></div>
+            <div class="edit-skill-row">
+                        
+                <input
+                    type="text"
+                    id="newSkillName"
+                    placeholder="Skill (Python, SQL, React...)"
+                >
+                        
+                <select id="newSkillLevel">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="pro">Pro</option>
+                </select>
+            
+            </div>
+
+            <button
+                class="card-action"
+                onclick="addEditSkill()"
+            >
+                + Add skill
+            </button>
+        </div>
+        <div class="modal-item">
+    <strong>Bio</strong>
+
+    <textarea
+        id="editProfileBio"
+        placeholder="Tell us about yourself..."
+        rows="3"
+    ></textarea>
+</div>
+<div class="modal-item">
+    <strong>Location</strong>
+
+    <input
+        type="text"
+        id="editProfileLocation"
+        placeholder="Enter your location"
+    >
+</div>
+        <div class="modal-item">
+    <strong>Roles</strong>
+
+    <input
+        type="text"
+        id="editProfileRoles"
+        placeholder="Roles (Backend Developer, Data Analyst...)"
+    >
+</div>
+
+<div class="modal-item">
+    <strong>Interests</strong>
+
+    <input
+        type="text"
+        id="editProfileInterests"
+        placeholder="Interests (AI, Web Development...)"
+    >
+</div>
+
+        <button
+            class="primary-button"
+            onclick="saveEditedProfile()"
+        >
+            Save Changes
+        </button>
+
+    </div>
+</div>
+<div class="modal-backdrop hidden" id="otpModal">
+    <div class="modal-card">
+        <div class="modal-head">
+            <h3>Verify Email</h3>
+            <button class="close-modal" onclick="closeModal('otpModal')">×</button>
+        </div>
+
+        <div class="modal-item">
+            <strong>Enter OTP</strong>
+            <input
+                type="text"
+                id="otpInput"
+                maxlength="6"
+                placeholder="Enter 6-digit OTP"
+            >
+        </div>
+
+        <button
+            class="primary-button"
+            onclick="verifyOTP()">
+            Verify OTP
+        </button>
+    </div>
+</div>
+<div class="modal-backdrop hidden" id="createTeamModal">
+    <div class="modal-card">
+
+        <div class="modal-head">
+            <h3>Create Team</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('createTeamModal')"
+            >
+                ×
+            </button>
+        </div>
+
+        <div class="modal-item">
+            <strong>Team Name</strong>
+
+            <input
+                type="text"
+                id="createTeamName"
+                placeholder="Enter team name"
+            >
+        </div>
+
+        <div class="modal-item">
+            <strong>Number of People Wanted</strong>
+
+            <input
+                type="number"
+                id="createTeamSize"
+                min="2"
+                max="20"
+                placeholder="Example: 4"
+            >
+        </div>
+
+        <div class="modal-item">
+            <strong>Location</strong>
+
+            <input
+                type="text"
+                id="createTeamLocation"
+                placeholder="Example: Bengaluru"
+            >
+        </div>
+
+        <div class="modal-item">
+        <strong>Hackathon Date</strong>
+
+        <input
+            type="date"
+            id="createTeamHackathonDate"
+        >
+        </div>
+
+        <div class="modal-item">
+            <strong>Description</strong>
+
+            <textarea
+                id="createTeamDescription"
+                placeholder="Describe your project"
+            ></textarea>
+        </div>
+
+                <div class="modal-item">
+            <strong>Required Skills</strong>
+                
+            <input
+                type="text"
+                id="createTeamSkills"
+                placeholder="Example: Python, SQL, React"
+            >
+        </div>
+
+        <div class="modal-item">
+            <strong>Required Roles</strong>
+        
+            <input
+                type="text"
+                id="createTeamRoles"
+                placeholder="Example: Backend Developer, Designer"
+            >
+        </div>
+
+        <div class="modal-item">
+            <strong>Interests</strong>
+        
+            <input
+                type="text"
+                id="createTeamInterests"
+                placeholder="Example: AI, Web Development"
+            >
+        </div>
+
+        <button
+            class="primary-button"
+            onclick="submitCreateTeam()"
+        >
+            Create Team
+        </button>
+
+    </div>
+</div>
+
+</body>
+</html>
