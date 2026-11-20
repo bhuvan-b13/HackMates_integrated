@@ -156,27 +156,16 @@ def create_completed_hackathon(
 
 
 @router.post("/update")
-def update_completed_hackathons_route(
-    db: Session = Depends(get_db),
-):
-    """Search for and add new completed hackathons."""
-
+def update_completed_hackathons_route(db: Session = Depends(get_db)):
     from ..services.completed_hackathon_updater import (
-        update_completed_hackathons,
+        update_completed_hackathons
     )
 
-    try:
-        added = update_completed_hackathons(db)
+    result = update_completed_hackathons(db)
 
-        return {
-            "message": "Completed hackathons update finished",
-            "added": added,
-        }
-
-    except Exception as error:
-        db.rollback()
-
-        raise HTTPException(
-            status_code=500,
-            detail="Could not update completed hackathons",
-        ) from error
+    return {
+        "message": "Completed hackathons update finished",
+        "added": result["added"],
+        "updated": result["updated"],
+        "total_processed": result["total_processed"]
+    }

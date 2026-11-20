@@ -1,22 +1,28 @@
+
 from ddgs import DDGS
 
 
 def search_web(query: str, max_results: int = 10):
     results = []
 
-    with DDGS(timeout=15) as ddgs:
-        search_results = ddgs.text(
-            query,
-            max_results=max_results
-        )
+    try:
+        with DDGS(timeout=15) as ddgs:
+            search_results = ddgs.text(
+                query,
+                max_results=max_results
+            )
 
-        for result in search_results:
-            results.append({
-                "title": result.get("title", ""),
-                "url": result.get("href", ""),
-                "snippet": result.get("body", ""),
-                "source": ""
-            })
+            for result in search_results or []:
+                results.append({
+                    "title": result.get("title", ""),
+                    "url": result.get("href", ""),
+                    "snippet": result.get("body", ""),
+                    "source": ""
+                })
+
+    except Exception as error:
+        print(f"Web search failed for query: {query}")
+        print(f"Reason: {error}")
 
     return results
 
@@ -29,4 +35,4 @@ def find_article_url(title: str, source: str) -> str:
     if not results:
         return ""
 
-    return results[0]["url"]
+    return results[0].get("url", "")

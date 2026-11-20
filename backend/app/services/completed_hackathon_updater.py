@@ -1,4 +1,6 @@
+
 import json
+from datetime import datetime
 
 from .hackathon_finder import find_completed_hackathons
 from .web_search import search_web
@@ -11,21 +13,74 @@ from ..models import CompletedHackathon
 
 
 def update_completed_hackathons(db, source_urls=None):
+
+    # --------------------------------------------------
+    # 1. Collect existing and newly discovered sources
+    # --------------------------------------------------
+
     if source_urls:
-        # Update only the explicitly selected sources.
+        # Update only explicitly selected sources.
         candidates = [
-            {"source_url": url}
+            {"source_url": url.strip()}
             for url in source_urls
+            if isinstance(url, str) and url.strip()
         ]
+
     else:
-        # Preserve the existing automatic discovery behavior.
+        # Retrieve all existing hackathon records from SQLite.
+        existing_records = (
+            db.query(CompletedHackathon).all()
+        )
+
+        existing_candidates = [
+            {"source_url": record.source_url.strip()}
+            for record in existing_records
+            if record.source_url
+            and record.source_url.strip()
+        ]
+
+        # Discover new completed hackathons for the current year.
+        current_year = datetime.now().year
+
         search_results = search_web(
-            '"hackathon" "winners" "2026" India results',
+            f'"hackathon" "winners" "{current_year}" India results',
             max_results=15
         )
 
         result = find_completed_hackathons(search_results)
-        candidates = result.get("completed_hackathons", [])
+
+        discovered_candidates = result.get(
+            "completed_hackathons", []
+        )
+
+        # Combine existing and newly discovered sources.
+        # Avoid processing the same source URL twice.
+        candidates = []
+        seen_urls = set()
+
+        for candidate in (
+            existing_candidates + discovered_candidates
+        ):
+            if not isinstance(candidate, dict):
+                continue
+
+            url = candidate.get("source_url", "")
+
+            if not isinstance(url, str):
+                continue
+
+            url = url.strip()
+
+            if url and url not in seen_urls:
+                candidate = candidate.copy()
+                candidate["source_url"] = url
+
+                candidates.append(candidate)
+                seen_urls.add(url)
+
+    # --------------------------------------------------
+    # 2. Track inserted and refreshed records
+    # --------------------------------------------------
 
     added = 0
     updated = 0
@@ -48,21 +103,40 @@ def update_completed_hackathons(db, source_urls=None):
         "third_project_description",
     ]
 
+    # Only these fields may be explicitly cleared
+    # under the existing GitLab correction condition.
+    clearable_fields = {
+        "first_place",
+        "second_place",
+        "third_place",
+    }
+
+    # --------------------------------------------------
+    # 3. Read source webpages and extract information
+    # --------------------------------------------------
+
     for candidate in candidates:
+
         source_url = candidate.get("source_url", "")
-        related_source_url = candidate.get("related_source_url", "")
+        related_source_url = candidate.get(
+            "related_source_url", ""
+        )
 
         if not source_url:
             continue
 
         try:
-            # Read the main source.
+            # Read the main source webpage or PDF.
             if source_url.lower().endswith(".pdf"):
                 page_text = read_pdf(source_url)
             else:
                 page_text = read_page(source_url)
 
-            # Append related source text when available.
+            if not page_text or not page_text.strip():
+                print(f"Skipped empty source: {source_url}")
+                continue
+
+            # Read additional related source when available.
             if related_source_url:
                 try:
                     if related_source_url.lower().endswith(".pdf"):
@@ -80,14 +154,18 @@ def update_completed_hackathons(db, source_urls=None):
                     )
                     print(f"Reason: {error}")
 
-            # Extract information from the source.
+            # Extract structured information using Ollama.
             data = extract_hackathon(page_text, source_url)
 
+            # Do not save invalid or unsupported extraction results.
             if not validate_hackathon(data):
                 print(f"Skipped invalid hackathon: {source_url}")
                 continue
 
-            # Find an existing record.
+            # --------------------------------------------------
+            # 4. Find existing record or create a new record
+            # --------------------------------------------------
+
             hackathon = (
                 db.query(CompletedHackathon)
                 .filter(
@@ -102,38 +180,47 @@ def update_completed_hackathons(db, source_urls=None):
                 hackathon = CompletedHackathon(
                     title=data.get("title", "")
                 )
-            
-                        # Update extracted fields.
-            # For selected existing records, allow explicitly corrected
-            # empty placement fields to clear incorrect stored rankings.
-            clearable_fields = {
-                "first_place",
-                "second_place",
-                "third_place",
-            }
-            
+
+            # Preserve the existing GitLab correction behavior.
             allow_empty_placements = (
                 not is_new
-                and source_url in (source_urls or [])
+                and source_urls is not None
+                and source_url in source_urls
                 and "gitlab.com/blog/gitlab-ai-hackathon-2026-meet-the-winners"
                 in source_url
             )
-            
+
+            # --------------------------------------------------
+            # 5. Update extracted text fields
+            # --------------------------------------------------
+
             for field in text_fields:
+
                 new_value = data.get(field, "")
-            
+
                 if isinstance(new_value, str):
                     new_value = new_value.strip()
-            
+
+                # Update only when the extracted value is non-empty.
                 if new_value:
                     setattr(hackathon, field, new_value)
-                elif allow_empty_placements and field in clearable_fields:
+
+                # Explicitly clear selected placement fields
+                # only under the existing GitLab correction rule.
+                elif (
+                    allow_empty_placements
+                    and field in clearable_fields
+                ):
                     setattr(hackathon, field, "")
-            # Preserve existing project ideas when extraction returns
-            # an empty list. Otherwise, save the extracted list.
+
+            # --------------------------------------------------
+            # 6. Update project ideas without losing old data
+            # --------------------------------------------------
+
             new_ideas = data.get("project_ideas", [])
 
             if isinstance(new_ideas, list) and new_ideas:
+
                 clean_ideas = [
                     idea.strip()
                     for idea in new_ideas
@@ -141,11 +228,17 @@ def update_completed_hackathons(db, source_urls=None):
                 ]
 
                 if clean_ideas:
-                    hackathon.project_ideas = json.dumps(clean_ideas)
+                    hackathon.project_ideas = json.dumps(
+                        clean_ideas
+                    )
+
             elif is_new:
                 hackathon.project_ideas = "[]"
 
-            # Preserve the source URL.
+            # --------------------------------------------------
+            # 7. Save the record in SQLite
+            # --------------------------------------------------
+
             hackathon.source_url = source_url
 
             db.add(hackathon)
@@ -153,20 +246,33 @@ def update_completed_hackathons(db, source_urls=None):
 
             if is_new:
                 added += 1
+
                 print(
                     f"Added completed hackathon: "
                     f"{hackathon.title}"
                 )
+
             else:
                 updated += 1
+
                 print(
-                    f"Updated completed hackathon: "
+                    f"Refreshed completed hackathon: "
                     f"{hackathon.title}"
                 )
 
         except Exception as error:
+
             db.rollback()
+
             print(f"Skipped source: {source_url}")
             print(f"Reason: {error}")
 
-    return added
+    # --------------------------------------------------
+    # 8. Return update summary
+    # --------------------------------------------------
+
+    return {
+        "added": added,
+        "updated": updated,
+        "total_processed": added + updated
+    }
