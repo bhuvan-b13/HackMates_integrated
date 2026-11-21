@@ -31,3 +31,7 @@ old_databases/
 .vscode/
 .idea/
 EOFhackmate.bd
+
+# Runtime logs
+logs/
+*.log
